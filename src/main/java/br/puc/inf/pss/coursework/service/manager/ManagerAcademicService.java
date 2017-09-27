@@ -36,14 +36,36 @@ public class ManagerAcademicService {
 		projects.add(project);
 	}
 	
-	public void alocateColaboratorInProject(String researchProjectId, List<Collaborator> collaborators) {
+	public List<Collaborator> alocateColaboratorInProject(String researchProjectId,
+														  List<Collaborator> collaborators) {
+		
+		List<Collaborator> allocatedCollaborators = new ArrayList<>();
 		for(ResearchProject project: projects) {
 			if(project.ID == researchProjectId) {
 				
-				
-			    project.validateAlocation(collaborators);
+				allocatedCollaborators = project.alocateCollaborator(collaborators);
+			    
 			}
 		}
+		
+		return allocatedCollaborators;
+		
+	}
+	
+	public List<Publication> addPublicationInProject(String researchProjectId, 
+			                            Publication publication) {
+	
+		List<Publication> publications = new ArrayList<>();
+		
+		for(ResearchProject project: projects) {
+			if(project.ID == researchProjectId) {
+			
+				project.addPublication(publication);
+				publications = project.getPublications();
+			}
+		}
+		
+		return publications;
 		
 	}
 	
@@ -55,7 +77,6 @@ public class ManagerAcademicService {
 		for(ResearchProject project: projects) {
 			if(project.ID == researchProjectId) {
 				//mudar para elaboração, ou seja, constarem todas as informações básicas a respeito do projeto
-				
 				
 				
 				
@@ -84,6 +105,8 @@ public class ManagerAcademicService {
 		}
 		return false;
 	}
+	
+	
 
 
 	public ResearchProject findProject(String idProject) {

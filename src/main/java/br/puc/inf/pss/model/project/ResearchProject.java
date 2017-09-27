@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.puc.inf.pss.coursework.model.production.Publication;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 import br.puc.inf.pss.coursework.service.manager.Alocation;
@@ -19,6 +20,7 @@ public class ResearchProject{
 	private String goal;
 	private String description;
 	private List<Collaborator> participants;
+	private List<Publication> publications;
 	private StatusResearchProject status;
 	
 	
@@ -42,10 +44,7 @@ public class ResearchProject{
 		this.status = status;
 		this.participants = new ArrayList<>();
 	}
-	
-	public void alocateColaborator(Collaborator collaborator) {
-		participants.add(collaborator);
-	}
+
 	
 	
 
@@ -56,27 +55,62 @@ public class ResearchProject{
 	public void setStatus(StatusResearchProject status) {
 		this.status = status;
 	}
+	
+	public boolean addPublication(Publication publication) {
+		if(status.equals(StatusResearchProject.IN_PROGRESS)) {
+		   publications.add(publication);
+		}
+		
+		return status.equals(StatusResearchProject.IN_PROGRESS);
+		
+		
+	}
+	
 
-
-	public boolean validateAlocation(List<Collaborator> collaborators) {
+	public List<Collaborator> alocateCollaborator(List<Collaborator> collaborators) {
 		// TODO Auto-generated method stub
 		
-		boolean hasProfessor;
+		boolean hasProfessor = false;
+		List<Collaborator> tempCollaboratorsList = new ArrayList<>();
+		
+		//validation collaborators
 		for(Collaborator collaborator: collaborators) {
 			
 			if(collaborator.isCollaboratorType(CollaboratorType.PROFESSOR)) {
 			   hasProfessor = true;
+			   tempCollaboratorsList.add(collaborator);
 			}
 			else
 			  if(collaborator.isCollaboratorType(CollaboratorType.DEGREE_STUDENT)){
-				 collaborator.validateAlocation();
+				 
+				  if(collaborator.validateAlocation()) {
+					 tempCollaboratorsList.add(collaborator); 
+				 }
 			  }
-				
-			
-	
+
 		}
-	    return true;	
+		
+		//if collaborators are valid, so add list
+		if(hasProfessor) {
+			participants.addAll(tempCollaboratorsList);
+		}
+		
+		
+		return participants;
+	    	
 	}
+
+
+
+
+	public List<Publication> getPublications() {
+		return publications;
+	}
+
+
+
+
+
 	
 	
 	

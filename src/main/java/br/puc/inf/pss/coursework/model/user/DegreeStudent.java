@@ -19,7 +19,8 @@ public class DegreeStudent extends Student{
 			
 		}
 		
-		return inProgress == 2 ? false: true;
+		//If projects in progress was more than 2, so student cannot be alocated 
+		return inProgress > 2 ? false : true;
 	}
 
 }
