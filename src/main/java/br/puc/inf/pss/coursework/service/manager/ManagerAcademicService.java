@@ -4,8 +4,9 @@ package br.puc.inf.pss.coursework.service.manager;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.production.Publication;
+import br.puc.inf.pss.coursework.model.production.AcademicProduction;
+import br.puc.inf.pss.coursework.model.production.AcademicProduction.AcademicProductionType;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.model.project.ResearchProject;
 import br.puc.inf.pss.model.project.StatusResearchProject;
@@ -14,13 +15,13 @@ import br.puc.inf.pss.model.project.StatusResearchProject;
 public class ManagerAcademicService {
 
 	private  List<ResearchProject> projects;
-	private  List<Publication> publications;
+	private  List<AcademicProduction> productions;
 	private  List<Collaborator> collaborators;
 	
 	private ManagerAcademicService() {
 		this.collaborators = new ArrayList<>();
 		this.projects = new ArrayList<>();
-		this.publications = new ArrayList<>();
+		this.productions = new ArrayList<>();
 	}
 	
 	
@@ -29,7 +30,9 @@ public class ManagerAcademicService {
 	}
 	
     public void addAcademicProduction(AcademicProduction production) {
-		publications.add(production);
+		
+    	production.validProduction();
+    	productions.add(production);
 	}
 	
     
@@ -70,10 +73,10 @@ public class ManagerAcademicService {
 		
 	}
 	
-	public List<Publication> addPublicationInProject(String researchProjectId, 
-			                            Publication publication) {
+	public List<AcademicProduction> addPublicationInProject(String researchProjectId, 
+			                            AcademicProduction publication) {
 	
-		List<Publication> publications = new ArrayList<>();
+		List<AcademicProduction> publications = new ArrayList<>();
 		for(ResearchProject project: projects) {
 			if(project.ID == researchProjectId) {
 			
@@ -113,7 +116,7 @@ public class ManagerAcademicService {
 	
 	private boolean hasPublicationsByProject(String researchProjectId) {
 		// TODO Auto-generated method stub
-		for(Publication publication: publications) {
+		for(AcademicProduction publication: productions) {
 			
 			
 	       if(publication.getIdResearchProject().equals(researchProjectId)) {

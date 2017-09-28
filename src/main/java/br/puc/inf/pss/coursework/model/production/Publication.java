@@ -1,25 +1,12 @@
 package br.puc.inf.pss.coursework.model.production;
 
-import java.util.List;
+public class Publication extends AcademicProduction{
 
-import br.puc.inf.pss.coursework.model.user.Collaborator;
+	@Override
+	public void validProduction() {
+		// TODO Auto-generated method stub
+		
+	}
 
-public class Publication {
-
-	public String ID;
-	private String title;
-	private List<Collaborator> authors;
-	private String conferenceName;
-	private int year;
-	private String idResearchProject;
-	
-	
-	
-	
-	public String getIdResearchProject() {
-		return idResearchProject;
-	} 
-	
-	
 	
 }

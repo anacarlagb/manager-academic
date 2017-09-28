@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.puc.inf.pss.coursework.model.production.Publication;
+import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 import br.puc.inf.pss.coursework.service.manager.Alocation;
@@ -20,7 +20,7 @@ public class ResearchProject{
 	private String goal;
 	private String description;
 	private List<Collaborator> participants;
-	private List<Publication> publications;
+	private List<AcademicProduction> publications;
 	private StatusResearchProject status;
 	
 	
@@ -55,7 +55,7 @@ public class ResearchProject{
 		this.status = status;
 	}
 	
-	public boolean addPublication(Publication publication) {
+	public boolean addPublication(AcademicProduction publication) {
 		if(status.equals(StatusResearchProject.IN_PROGRESS)) {
 		   publications.add(publication);
 		}
@@ -99,7 +99,7 @@ public class ResearchProject{
 	}
 
 
-	public List<Publication> getPublications() {
+	public List<AcademicProduction> getPublications() {
 		return publications;
 	}
 
