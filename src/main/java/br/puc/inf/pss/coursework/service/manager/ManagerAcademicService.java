@@ -32,9 +32,27 @@ public class ManagerAcademicService {
 		publications.add(production);
 	}
 	
-	public void addProject(ResearchProject project){
-		projects.add(project);
-	}
+    
+    public void elaborateResearchProject(ResearchProject project) {
+    	
+    	List<Collaborator> collaborators = new ArrayList<>();
+    	
+    	project.setStatus(StatusResearchProject.IN_ELABORATION);
+    	if(!project.isElaboration()) {
+    		project.setStatus(StatusResearchProject.IN_PROGRESS);
+    	}
+    
+    	if(project.getParticipants() != null) {
+    		collaborators = project.getParticipants();
+    		project.getParticipants().clear();
+    	}
+    	
+    	projects.add(project);
+    	alocateColaboratorInProject(project.ID, collaborators);
+    	
+    }
+    
+	
 	
 	public List<Collaborator> alocateColaboratorInProject(String researchProjectId,
 														  List<Collaborator> collaborators) {
@@ -56,7 +74,6 @@ public class ManagerAcademicService {
 			                            Publication publication) {
 	
 		List<Publication> publications = new ArrayList<>();
-		
 		for(ResearchProject project: projects) {
 			if(project.ID == researchProjectId) {
 			

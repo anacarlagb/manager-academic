@@ -45,8 +45,7 @@ public class ResearchProject{
 		this.participants = new ArrayList<>();
 	}
 
-	
-	
+		
 
 	public StatusResearchProject getStatus() {
 		return status;
@@ -62,11 +61,10 @@ public class ResearchProject{
 		}
 		
 		return status.equals(StatusResearchProject.IN_PROGRESS);
-		
-		
+			
 	}
 	
-
+	
 	public List<Collaborator> alocateCollaborator(List<Collaborator> collaborators) {
 		// TODO Auto-generated method stub
 		
@@ -101,21 +99,49 @@ public class ResearchProject{
 	}
 
 
-
-
 	public List<Publication> getPublications() {
 		return publications;
 	}
 
 
+	public boolean isElaboration() {
+		// TODO Auto-generated method stub
+		
+		return (title == null || title.isEmpty())     
+			  ||startDate == null 
+			  ||endDate == null   
+			  ||fundingInstitutionName == null
+			  ||fundingValue  == null
+			  ||(goal == null || goal.isEmpty())
+			  ||(description == null || description.isEmpty())
+			  ||(participants == null || participants.isEmpty());
+		    
+
+		
+	}
+
+//	public boolean isElaboration() {
+//		// TODO Auto-generated method stub
+//		
+//		if(status == null) {
+//			status = StatusResearchProject.IN_ELABORATION;
+//		}
+//		
+//		if(title == null) {
+//		
+//		}
+//		return false;
+//	}
 
 
 
-	
-	
-	
-	
-	
+	public List<Collaborator> getParticipants() {
+		// TODO Auto-generated method stub
+		return participants;
+	}
+
+
+
 	
 	
 	
