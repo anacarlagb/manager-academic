@@ -7,13 +7,14 @@ import br.puc.inf.pss.coursework.model.user.Collaborator;
 public abstract class AcademicProduction {
 
 	public String ID;
-	private String title;
-	private List<Collaborator> authors;
-	private String conferenceName;
-	private String conferenceLocal;
-	private int year;
-	private String idResearchProject;
-	private AcademicProduction academicProduction;
+	protected String title;
+	protected List<Collaborator> authors;
+	protected String conferenceName;
+	protected String conferenceLocal;
+	protected int year;
+	protected String idResearchProject;
+	protected AcademicProduction academicProduction;
+	protected Collaborator advisor;
 	
 	public enum AcademicProductionType {
 		PUBLICATION, ORIENTATION;
@@ -52,7 +53,7 @@ public abstract class AcademicProduction {
 
 
 
-	public abstract void validProduction(); 
+	public abstract boolean validProduction(); 
 	
 	
 	

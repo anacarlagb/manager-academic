@@ -24,18 +24,21 @@ public class ManagerAcademicService {
 		this.productions = new ArrayList<>();
 	}
 	
-	
-	public void addColaborator(Collaborator colaborator) {
+	/**
+	 * Add collaborattor to database  
+	 * 
+	 **/
+	public void addColaborator(Collaborator colaborator) {//TODO - constructor with basic data
 	 	collaborators.add(colaborator);
 	}
 	
-    public void addAcademicProduction(AcademicProduction production) {
-		
-    	production.validProduction();
-    	productions.add(production);
-	}
 	
-    
+    /**
+     * Add project to database
+     * First, add  valid elaboration, after add project in database
+     * After valid collaborator, if collaborators are valid
+     * 
+     * */
     public void elaborateResearchProject(ResearchProject project) {
     	
     	List<Collaborator> collaborators = new ArrayList<>();
@@ -56,7 +59,12 @@ public class ManagerAcademicService {
     }
     
 	
-	
+	/**
+	 * Allocate collaborators by project
+	 * Valid collaborator, at least one professor 
+	 * and degree students cannot more than two projects in progress
+	 * Save IdProject in database for collaborators
+	 * */
 	public List<Collaborator> alocateColaboratorInProject(String researchProjectId,
 														  List<Collaborator> collaborators) {
 		
@@ -72,7 +80,20 @@ public class ManagerAcademicService {
 		return allocatedCollaborators;
 		
 	}
-	
+
+	/**
+	 * Add production to database 
+	 * Valid if publication is valid, for example orientation only advisor professor
+	 * and save idPublication in Project (if exists) and in Collaborators
+	 * If exist project, so change status project to concluded 
+	 * */
+    public void addAcademicProduction(AcademicProduction production) {//TODO - constructor with basic data
+		
+    	production.validProduction();
+    	productions.add(production);
+	}
+    
+    
 	public List<AcademicProduction> addPublicationInProject(String researchProjectId, 
 			                            AcademicProduction publication) {
 	
@@ -88,11 +109,7 @@ public class ManagerAcademicService {
 		return publications;
 		
 	}
-	
-	public void updateAcademicProduction() {
-		
-	}
-	
+
 	public void updateStatusResearchProject(String researchProjectId, StatusResearchProject statusUpdated) {
 		for(ResearchProject project: projects) {
 			if(project.ID == researchProjectId) {
@@ -127,8 +144,9 @@ public class ManagerAcademicService {
 	}
 	
 	
+   /*--------------------------------------------REPORTS ---------------------------------- */
 
-
+    
 	public ResearchProject findProject(String idProject) {
 		
 		return null;
