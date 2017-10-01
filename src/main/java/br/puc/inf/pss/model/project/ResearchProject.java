@@ -20,20 +20,24 @@ public class ResearchProject{
 	private String goal;
 	private String description;
 	private List<Collaborator> participants;
+	private List<String> collaborators;
 	private List<AcademicProduction> publications;
 	private StatusResearchProject status;
 	
 	
 	
-	public ResearchProject(String title, 
-						   Date startDate, 
-						   Date endDate, 
-						   String fundingInstitutionName,
+	public ResearchProject(String ID, 
+			               String title, 
+						   Date startDate,  
+						   Date endDate,
+						   String fundingInstitutionName, 
 						   Double fundingValue, 
 						   String goal, 
-						   String description, 
+						   String description,
+						   List<String> collaborators,
 						   StatusResearchProject status) {
-	
+
+		this.ID = ID;
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -41,7 +45,10 @@ public class ResearchProject{
 		this.fundingValue = fundingValue;
 		this.goal = goal;
 		this.description = description;
+		this.collaborators = collaborators;
 		this.status = status;
+	
+		
 		this.participants = new ArrayList<>();
 	}
 
@@ -55,12 +62,14 @@ public class ResearchProject{
 		this.status = status;
 	}
 	
-	public boolean addPublication(AcademicProduction publication) {
+	public void addPublication(AcademicProduction publication) {
+	
 		if(status.equals(StatusResearchProject.IN_PROGRESS)) {
 		   publications.add(publication);
+		   status = StatusResearchProject.CONCLUDED;
 		}
 		
-		return status.equals(StatusResearchProject.IN_PROGRESS);
+		
 			
 	}
 	

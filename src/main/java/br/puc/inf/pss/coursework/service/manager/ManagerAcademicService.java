@@ -17,6 +17,7 @@ public class ManagerAcademicService {
 	private  List<ResearchProject> projects;
 	private  List<AcademicProduction> productions;
 	private  List<Collaborator> collaborators;
+	public static final ManagerAcademicService manager = new ManagerAcademicService();
 	
 	private ManagerAcademicService() {
 		this.collaborators = new ArrayList<>();
@@ -28,7 +29,7 @@ public class ManagerAcademicService {
 	 * Add collaborattor to database  
 	 * 
 	 **/
-	public void addColaborator(Collaborator colaborator) {//TODO - constructor with basic data
+	public void addColaborator(Collaborator colaborator) {
 	 	collaborators.add(colaborator);
 	}
 	
@@ -44,6 +45,7 @@ public class ManagerAcademicService {
     	List<Collaborator> collaborators = new ArrayList<>();
     	
     	project.setStatus(StatusResearchProject.IN_ELABORATION);
+    	
     	if(!project.isElaboration()) {
     		project.setStatus(StatusResearchProject.IN_PROGRESS);
     	}
@@ -69,16 +71,33 @@ public class ManagerAcademicService {
 														  List<Collaborator> collaborators) {
 		
 		List<Collaborator> allocatedCollaborators = new ArrayList<>();
+		ResearchProject researchProject = null;
+		
 		for(ResearchProject project: projects) {
 			if(project.ID == researchProjectId) {
 				
 				allocatedCollaborators = project.alocateCollaborator(collaborators);
-			    
+			    researchProject = project;
 			}
 		}
 		
+		for(Collaborator collaborator: allocatedCollaborators) {
+				addProjectInCollaborator(collaborator.getId(), researchProject);			
+		}
+		
+		
 		return allocatedCollaborators;
 		
+	}
+
+	private void addProjectInCollaborator(String collaboratorId, ResearchProject project) {
+		// TODO Auto-generated method stub
+		for(Collaborator collaborator: collaborators) {
+			if(collaborator.getId().equals(collaboratorId)) {
+				
+				collaborator.addResearchProject(project);
+			}
+		}
 	}
 
 	/**
@@ -89,47 +108,34 @@ public class ManagerAcademicService {
 	 * */
     public void addAcademicProduction(AcademicProduction production) {//TODO - constructor with basic data
 		
-    	production.validProduction();
-    	productions.add(production);
+    	if(production.validProduction()) {
+    		productions.add(production);
+    		if(production.getIdResearchProject() != null) {
+    			addProductionInProject(production.getIdResearchProject(), production);
+    		}
+    	}
+    	
+    	
 	}
     
     
-	public List<AcademicProduction> addPublicationInProject(String researchProjectId, 
-			                            AcademicProduction publication) {
+	public List<AcademicProduction> addProductionInProject(String researchProjectId, 
+			                            AcademicProduction production) {
 	
-		List<AcademicProduction> publications = new ArrayList<>();
+		List<AcademicProduction> productions = new ArrayList<>();
+		
 		for(ResearchProject project: projects) {
 			if(project.ID == researchProjectId) {
 			
-				project.addPublication(publication);
-				publications = project.getPublications();
+				project.addPublication(production);
+				productions = project.getPublications();
 			}
 		}
 		
-		return publications;
+		return productions;
 		
 	}
 
-	public void updateStatusResearchProject(String researchProjectId, StatusResearchProject statusUpdated) {
-		for(ResearchProject project: projects) {
-			if(project.ID == researchProjectId) {
-				//mudar para elaboração, ou seja, constarem todas as informações básicas a respeito do projeto
-				
-				
-				
-				//para mudar para Em andamento, devem existir publicações associadas ao projeto
-				if(statusUpdated.equals(StatusResearchProject.CONCLUDED) 
-						&& hasPublicationsByProject(researchProjectId)) {
-					project.setStatus(statusUpdated);
-				}
-				
-				
-
-				break;
-			}
-			
-		}
-	}
 	
 	private boolean hasPublicationsByProject(String researchProjectId) {
 		// TODO Auto-generated method stub
@@ -161,5 +167,20 @@ public class ManagerAcademicService {
 	public AcademicProductionReport generateAcademicReport() {
 		return null;
 	}
+
+	public List<ResearchProject> getProjects() {
+		return projects;
+	}
+
+	public List<AcademicProduction> getProductions() {
+		return productions;
+	}
+
+	public List<Collaborator> getCollaborators() {
+		return collaborators;
+	}
+	
+	
+	
 	
 }

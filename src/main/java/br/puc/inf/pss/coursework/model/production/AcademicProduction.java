@@ -6,16 +6,36 @@ import br.puc.inf.pss.coursework.model.user.Collaborator;
 
 public abstract class AcademicProduction {
 
-	public String ID;
+	private String ID;
 	protected String title;
 	protected List<Collaborator> authors;
-	protected String conferenceName;
-	protected String conferenceLocal;
-	protected int year;
+
 	protected String idResearchProject;
-	protected AcademicProduction academicProduction;
 	protected Collaborator advisor;
+	protected List<String> collaborators;
 	
+	
+	
+	
+	
+	public AcademicProduction(String iD, 
+							  String title,
+							  List<String> collaborators,
+							  String idResearchProject,
+							  Collaborator advisor) {
+		
+		ID = String.valueOf(System.currentTimeMillis());
+		
+		this.title = title;
+		this.authors = authors;
+		this.idResearchProject = idResearchProject;
+		this.advisor = advisor;
+	}
+
+
+
+
+
 	public enum AcademicProductionType {
 		PUBLICATION, ORIENTATION;
 	};

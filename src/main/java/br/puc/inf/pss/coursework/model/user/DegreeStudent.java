@@ -1,5 +1,7 @@
 package br.puc.inf.pss.coursework.model.user;
 
+import java.util.Date;
+
 import br.puc.inf.pss.model.project.ResearchProject;
 import br.puc.inf.pss.model.project.StatusResearchProject;
 
@@ -7,6 +9,17 @@ public class DegreeStudent extends Student{
 	
 	
 	
+	public DegreeStudent(String ID, 
+							String name,
+							String email,
+							Date startDate, 
+							CollaboratorType collaboratorType, 
+							String advisorId) {
+		
+		super(ID, name, email, startDate, collaboratorType, advisorId);
+		
+	}
+
 	@Override
 	public boolean validateAlocation() {
 		// TODO Auto-generated method stub

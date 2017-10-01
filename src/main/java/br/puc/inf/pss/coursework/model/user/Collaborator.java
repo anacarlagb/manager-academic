@@ -11,14 +11,30 @@ public abstract class Collaborator implements Alocation{
      
 	
 	private String ID;
-	private String name;
-	private String email;
-	private Date startDate;
-	private CollaboratorType collaboratorType;
-	private List<ResearchProject> projects;
+	protected String name;
+	protected String email;
+	protected Date startDate;
+	protected CollaboratorType collaboratorType;
+	protected List<ResearchProject> projects;
 	
+	public Collaborator(String iD,
+						String name, 
+						String email,
+						Date startDate, 
+						CollaboratorType collaboratorType) {
+		
+		ID = String.valueOf(System.currentTimeMillis());
+		
+		this.name = name;
+		this.email = email;
+		this.startDate = startDate;
+		this.collaboratorType = collaboratorType;
+	}
+
+
+
 	public enum CollaboratorType {
-		PROFESSOR, DEGREE_STUDENT, MASTER_STUDENT,PHD_STUDENT,RESEARCHER
+		PROFESSOR, DEGREE_STUDENT, MASTER_STUDENT,PHD_STUDENT,RESEARCHER, TEACHER
 	};
 	
 	
@@ -32,6 +48,20 @@ public abstract class Collaborator implements Alocation{
 
 	public List<ResearchProject> getProjects() {
 		return projects;
+	}
+
+
+
+	public String getId() {
+		// TODO Auto-generated method stub
+		return ID;
+	}
+
+
+
+	public void addResearchProject(ResearchProject researchProject) {
+		// TODO Auto-generated method stub
+		projects.add(researchProject);
 	}
 	
 	
