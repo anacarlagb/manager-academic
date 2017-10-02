@@ -16,7 +16,7 @@ public class Orientation extends AcademicProduction{
 						String title,
 						String advisorId,
 						String studentId,
-						List<String> authors,
+						List<Collaborator> authors,
 						String idResearchProject) {
 		
 		super(iD, title, authors, idResearchProject, null);

@@ -1,5 +1,6 @@
 package br.puc.inf.pss.coursework.model.user;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,24 +18,28 @@ public abstract class Collaborator implements Alocation{
 	protected CollaboratorType collaboratorType;
 	protected List<ResearchProject> projects;
 	
-	public Collaborator(String iD,
+	public Collaborator(String id,
 						String name, 
 						String email,
 						Date startDate, 
 						CollaboratorType collaboratorType) {
 		
-		ID = String.valueOf(System.currentTimeMillis());
+		/*If id is empty, so create id, else assigns*/
+		this.ID = (id == null || id.isEmpty()) ? 
+				  String.valueOf(System.currentTimeMillis()) : 
+			      id;
 		
 		this.name = name;
 		this.email = email;
 		this.startDate = startDate;
 		this.collaboratorType = collaboratorType;
+		this.projects = new ArrayList<>();
 	}
 
 
 
 	public enum CollaboratorType {
-		PROFESSOR, DEGREE_STUDENT, MASTER_STUDENT,PHD_STUDENT,RESEARCHER, TEACHER
+		PROFESSOR, DEGREE_STUDENT, MASTER_STUDENT,PHD_STUDENT,RESEARCHER
 	};
 	
 	

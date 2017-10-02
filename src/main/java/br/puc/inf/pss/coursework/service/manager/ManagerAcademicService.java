@@ -44,19 +44,23 @@ public class ManagerAcademicService {
     	
     	List<Collaborator> collaborators = new ArrayList<>();
     	
-    	project.setStatus(StatusResearchProject.IN_ELABORATION);
     	
-    	if(!project.isElaboration()) {
+    	
+    	if(project.isElaboration()) {
+    		project.setStatus(StatusResearchProject.IN_ELABORATION);		
+    	}
+    	else {
     		project.setStatus(StatusResearchProject.IN_PROGRESS);
     	}
     
-    	if(project.getParticipants() != null) {
-    		collaborators = project.getParticipants();
-    		project.getParticipants().clear();
+    	if(project.getCollaborators() != null) {
+    		collaborators = new ArrayList<>(project.getCollaborators());
+    		project.getCollaborators().clear();
+   
     	}
     	
     	projects.add(project);
-    	alocateColaboratorInProject(project.ID, collaborators);
+    	alocateColaboratorInProject(project.getId(), collaborators);
     	
     }
     
@@ -70,35 +74,61 @@ public class ManagerAcademicService {
 	public List<Collaborator> alocateColaboratorInProject(String researchProjectId,
 														  List<Collaborator> collaborators) {
 		
-		List<Collaborator> allocatedCollaborators = new ArrayList<>();
-		ResearchProject researchProject = null;
 		
-		for(ResearchProject project: projects) {
-			if(project.ID == researchProjectId) {
+		ResearchProject researchProject = null;
+		List<Collaborator> allocatedCollaborators = new ArrayList<>();
+		
+		//TODO - simplify collaborator
+		for(int projectIndex = 0; projectIndex < projects.size(); projectIndex++) {
+			researchProject = projects.get(projectIndex);
+			
+			if(researchProject.getId() == researchProjectId) {
 				
-				allocatedCollaborators = project.alocateCollaborator(collaborators);
-			    researchProject = project;
+				allocatedCollaborators = researchProject.alocateCollaborators(collaborators);
+				
+				projects.set(projectIndex, researchProject);
 			}
 		}
 		
-		for(Collaborator collaborator: allocatedCollaborators) {
-				addProjectInCollaborator(collaborator.getId(), researchProject);			
-		}
-		
+		//TODO - simplify project
+		addProjectInCollaborators(allocatedCollaborators, researchProject);
 		
 		return allocatedCollaborators;
 		
 	}
 
-	private void addProjectInCollaborator(String collaboratorId, ResearchProject project) {
+	private void addProjectInCollaborators(List<Collaborator> allocatedCollaborators, ResearchProject researchProject) {
 		// TODO Auto-generated method stub
-		for(Collaborator collaborator: collaborators) {
-			if(collaborator.getId().equals(collaboratorId)) {
+		
+		
+		
+		for(Collaborator allocatedCollaborator :allocatedCollaborators) {
+			
+			
+			for(Collaborator collaborator : collaborators) {
 				
-				collaborator.addResearchProject(project);
+				if(collaborator.getId().equals(allocatedCollaborator.getId())) {
+					collaborator.addResearchProject(researchProject);
+				}
 			}
+		
 		}
+	
+		
 	}
+
+//	private List<Collaborator> getCollaboratorsListById(List<String> collaboratorsId) {
+//		// TODO Auto-generated method stub
+//		
+//		List<Collaborator> collaboratorsList = new ArrayList<>();
+//		for(String collaboratorId : collaboratorsId) {
+//			
+//			Collaborator collaborator = findCollaborator(collaboratorId);
+//			collaboratorsList.add(collaborator);
+//		}
+//		return collaboratorsList;
+//	}
+
 
 	/**
 	 * Add production to database 
@@ -125,7 +155,7 @@ public class ManagerAcademicService {
 		List<AcademicProduction> productions = new ArrayList<>();
 		
 		for(ResearchProject project: projects) {
-			if(project.ID == researchProjectId) {
+			if(project.getId() == researchProjectId) {
 			
 				project.addPublication(production);
 				productions = project.getPublications();
@@ -155,11 +185,24 @@ public class ManagerAcademicService {
     
 	public ResearchProject findProject(String idProject) {
 		
+		for(ResearchProject researchProject : projects) {
+    		if(researchProject.getId().equals(idProject)) {
+    			return researchProject;
+    		}
+    		
+    	}
 		return null;
 	}
 	
-    public ResearchProject findColaborator(String idProject) {
+    public Collaborator findCollaborator(String collaboratorId) {
 		
+    	for(Collaborator collaborator : collaborators) {
+    		
+    		if(collaborator.getId().equals(collaboratorId)) {
+    			return collaborator;
+    		}
+    		
+    	}
 		return null;
 	}
     

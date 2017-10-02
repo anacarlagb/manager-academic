@@ -24,8 +24,9 @@ public class DegreeStudent extends Student{
 	public boolean validateAlocation() {
 		// TODO Auto-generated method stub
 		int inProgress = 0;
-		for(ResearchProject project: getProjects()) {
-			
+		
+		for(ResearchProject project: projects) {
+	     		
 			if(project.getStatus().equals(StatusResearchProject.IN_PROGRESS)) {
 				inProgress ++;
 			}

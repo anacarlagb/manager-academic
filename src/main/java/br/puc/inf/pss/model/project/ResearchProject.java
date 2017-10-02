@@ -11,7 +11,7 @@ import br.puc.inf.pss.coursework.service.manager.Alocation;
 
 public class ResearchProject{
 	
-	public String ID;
+	private String ID;
 	private String title;
 	private Date startDate;
 	private Date endDate;
@@ -19,8 +19,7 @@ public class ResearchProject{
 	private Double fundingValue;
 	private String goal;
 	private String description;
-	private List<Collaborator> participants;
-	private List<String> collaborators;
+	private List<Collaborator> collaborators;
 	private List<AcademicProduction> publications;
 	private StatusResearchProject status;
 	
@@ -34,7 +33,7 @@ public class ResearchProject{
 						   Double fundingValue, 
 						   String goal, 
 						   String description,
-						   List<String> collaborators,
+						   List<Collaborator> collaborators,
 						   StatusResearchProject status) {
 
 		this.ID = ID;
@@ -48,8 +47,7 @@ public class ResearchProject{
 		this.collaborators = collaborators;
 		this.status = status;
 	
-		
-		this.participants = new ArrayList<>();
+	
 	}
 
 		
@@ -74,36 +72,38 @@ public class ResearchProject{
 	}
 	
 	
-	public List<Collaborator> alocateCollaborator(List<Collaborator> collaborators) {
+	public List<Collaborator> alocateCollaborators(List<Collaborator> collaboratorsList) {
 		// TODO Auto-generated method stub
 		
 		boolean hasProfessor = false;
-		List<Collaborator> tempCollaboratorsList = new ArrayList<>();
+		List<Collaborator> tempCollaborators = new ArrayList<>();
 		
 		//validation collaborators
-		for(Collaborator collaborator: collaborators) {
+		for(Collaborator collaborator: collaboratorsList) {
 			
-			if(collaborator.isCollaboratorType(CollaboratorType.PROFESSOR)) {
-			   hasProfessor = true;
-			   tempCollaboratorsList.add(collaborator);
-			}
-			else
 			  if(collaborator.isCollaboratorType(CollaboratorType.DEGREE_STUDENT)){
-				 
+				
 				  if(collaborator.validateAlocation()) {
-					 tempCollaboratorsList.add(collaborator); 
+					 tempCollaborators.add(collaborator); 
 				 }
+			  }
+			  else {
+				  tempCollaborators.add(collaborator);
+				  if(collaborator.isCollaboratorType(CollaboratorType.PROFESSOR)) {
+					  hasProfessor = true;
+				  }
+				  
 			  }
 
 		}
 		
 		//if collaborators are valid, so add list
 		if(hasProfessor) {
-			participants.addAll(tempCollaboratorsList);
+			collaborators.addAll(tempCollaborators);
 		}
 		
 		
-		return participants;
+		return collaborators;
 	    	
 	}
 
@@ -123,30 +123,24 @@ public class ResearchProject{
 			  ||fundingValue  == null
 			  ||(goal == null || goal.isEmpty())
 			  ||(description == null || description.isEmpty())
-			  ||(participants == null || participants.isEmpty());
+			  ||(collaborators == null || collaborators.isEmpty());
 		    
 
 		
 	}
 
-//	public boolean isElaboration() {
-//		// TODO Auto-generated method stub
-//		
-//		if(status == null) {
-//			status = StatusResearchProject.IN_ELABORATION;
-//		}
-//		
-//		if(title == null) {
-//		
-//		}
-//		return false;
-//	}
 
 
 
-	public List<Collaborator> getParticipants() {
+	public List<Collaborator> getCollaborators() {
+		return collaborators;
+	}
+
+
+
+	public String getId() {
 		// TODO Auto-generated method stub
-		return participants;
+		return ID;
 	}
 
 

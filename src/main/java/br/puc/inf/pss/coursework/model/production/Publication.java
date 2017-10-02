@@ -12,7 +12,7 @@ public class Publication extends AcademicProduction{
 	
 	public Publication(String iD, 
 			           String title,
-			           List<String> authors,
+			           List<Collaborator> authors,
 			           String conferenceName,
 			           int year,
 			           String idResearchProject,

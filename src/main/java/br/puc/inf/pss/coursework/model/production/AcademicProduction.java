@@ -12,7 +12,7 @@ public abstract class AcademicProduction {
 
 	protected String idResearchProject;
 	protected Collaborator advisor;
-	protected List<String> collaborators;
+	protected List<Collaborator> collaborators;
 	
 	
 	
@@ -20,7 +20,7 @@ public abstract class AcademicProduction {
 	
 	public AcademicProduction(String iD, 
 							  String title,
-							  List<String> collaborators,
+							  List<Collaborator> collaborators,
 							  String idResearchProject,
 							  Collaborator advisor) {
 		
