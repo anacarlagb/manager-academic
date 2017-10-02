@@ -44,8 +44,6 @@ public class ManagerAcademicService {
     	
     	List<Collaborator> collaborators = new ArrayList<>();
     	
-    	
-    	
     	if(project.isElaboration()) {
     		project.setStatus(StatusResearchProject.IN_ELABORATION);		
     	}
@@ -61,6 +59,7 @@ public class ManagerAcademicService {
     	
     	projects.add(project);
     	alocateColaboratorInProject(project.getId(), collaborators);
+    	
     	
     }
     

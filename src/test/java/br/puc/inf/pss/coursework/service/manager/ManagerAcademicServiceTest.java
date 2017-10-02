@@ -97,22 +97,40 @@ public class ManagerAcademicServiceTest {
 		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj2);
 		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj3);
 		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj4);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj5);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj55);
 		
-		assertEquals(3, ManagerAcademicService.manager.getProjects().size());
+		assertEquals(5, ManagerAcademicService.manager.getProjects().size());
 		
+		ResearchProject project2 = ManagerAcademicService.manager.findProject(managerData.proj2.getId());
 		ResearchProject project3 = ManagerAcademicService.manager.findProject(managerData.proj3.getId());
+		ResearchProject project4 = ManagerAcademicService.manager.findProject(managerData.proj4.getId());
+		ResearchProject project5 = ManagerAcademicService.manager.findProject(managerData.proj5.getId());
+		ResearchProject project55 = ManagerAcademicService.manager.findProject(managerData.proj55.getId());
 		
+		
+		assertEquals(project2.getStatus(), StatusResearchProject.IN_PROGRESS);
 		assertEquals(project3.getStatus(), StatusResearchProject.IN_PROGRESS);
-		assertEquals(project3.getCollaborators().size(), 7);
-	    
-		Collaborator col1 = ManagerAcademicService.manager.findCollaborator(managerData.deg2.getId()); 
-		assertEquals(2, col1.getProjects().size());
+		assertEquals(project4.getStatus(), StatusResearchProject.IN_ELABORATION);
+		assertEquals(project5.getStatus(), StatusResearchProject.IN_ELABORATION);
+		assertEquals(project55.getStatus(), StatusResearchProject.IN_PROGRESS);
+		
+		assertEquals(project4.getCollaborators().size(), 8);
+		assertEquals(project5.getCollaborators().size(), 6);
+		assertEquals(project55.getCollaborators().size(), 6);
+		
+		Collaborator col1 = ManagerAcademicService.manager.findCollaborator(managerData.deg1.getId()); 
+        col1.getProjects();
+		
+		assertEquals(4, col1.getProjects().size());
+		
 		assertEquals(StatusResearchProject.IN_PROGRESS, col1.getProjects().get(0).getStatus());
 		assertEquals(StatusResearchProject.IN_PROGRESS, col1.getProjects().get(1).getStatus());
-		
-	    
-	    
+		assertEquals(StatusResearchProject.IN_ELABORATION, col1.getProjects().get(2).getStatus());
+		assertEquals(StatusResearchProject.IN_ELABORATION, col1.getProjects().get(3).getStatus());
+	      
 	}
+	
 	
 	
 }

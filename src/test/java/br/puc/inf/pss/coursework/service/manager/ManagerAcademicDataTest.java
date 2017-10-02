@@ -72,6 +72,7 @@ public class ManagerAcademicDataTest {
 	  Date dataProj5Start = null;
 	  Date dataProj5End = null;
 	  public ResearchProject proj5 = null;
+	  public ResearchProject proj55 = null;
 	  
 	  public AcademicProduction publ1 = null;
 	  public AcademicProduction publ2 = null;
@@ -135,7 +136,7 @@ public class ManagerAcademicDataTest {
 
         //PHD Students
 		phd8 = new PHDStudent("1008", "Michael", "michael@email.br", dataPHD8, CollaboratorType.PHD_STUDENT,"100", "Integral");
-		phd9 = new PHDStudent("1009", "Bia", "bia@email.br",dataPHD9,CollaboratorType.DEGREE_STUDENT, "100", "Integral");
+		phd9 = new PHDStudent("1009", "Bia", "bia@email.br",dataPHD9,CollaboratorType.PHD_STUDENT, "100", "Integral");
 
 		tea10 = new Teacher("100", "Prof. Carlos", "carlos@email.br", null, CollaboratorType.PROFESSOR);	
 		tea11 = new Teacher("101", "Prof. Arnaldo", "arnaldo@email.br", null, CollaboratorType.PROFESSOR);
@@ -201,6 +202,18 @@ public class ManagerAcademicDataTest {
 			   "O objetivo deste projeto é desenvolver sistemas multi-agentes autoorganizáveis.",
 			   "Pesquisar, aplicar e avaliar técnicas para o desenvolvimento de sistemas multi-agentes auto-organizáveis.",
 			   cols5List,
+			   StatusResearchProject.IN_ELABORATION);
+		
+		Collaborator[] cols55 = {tea10, deg1, deg3, mas5, mas6, mas7, phd9};
+		List<Collaborator> cols55List = new ArrayList<>();
+		cols55List.addAll(Arrays.asList(cols55));
+		proj55 = new ResearchProject("61",
+			   "Self-organizing Multi-agent Systems",
+			   dataProj5Start, dataProj5End, "FPCL",
+			   150.000,
+			   "O objetivo deste projeto é desenvolver sistemas multi-agentes autoorganizáveis.",
+			   "Pesquisar, aplicar e avaliar técnicas para o desenvolvimento de sistemas multi-agentes auto-organizáveis.",
+			   cols55List,
 			   StatusResearchProject.IN_ELABORATION);
 	
 		//Publications

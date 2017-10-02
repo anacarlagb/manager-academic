@@ -25,6 +25,7 @@ public class DegreeStudent extends Student{
 		// TODO Auto-generated method stub
 		int inProgress = 0;
 		
+		
 		for(ResearchProject project: projects) {
 	     		
 			if(project.getStatus().equals(StatusResearchProject.IN_PROGRESS)) {
@@ -34,7 +35,7 @@ public class DegreeStudent extends Student{
 		}
 		
 		//If projects in progress was more than 2, so student cannot be alocated 
-		return inProgress > 2 ? false : true;
+		return inProgress < 2 ? true : false;
 	}
 
 }

@@ -81,28 +81,21 @@ public class ResearchProject{
 		//validation collaborators
 		for(Collaborator collaborator: collaboratorsList) {
 			
-			  if(collaborator.isCollaboratorType(CollaboratorType.DEGREE_STUDENT)){
+			  if(status.equals(StatusResearchProject.IN_PROGRESS)
+					  && collaborator.isCollaboratorType(CollaboratorType.DEGREE_STUDENT)){
 				
 				  if(collaborator.validateAlocation()) {
 					 tempCollaborators.add(collaborator); 
 				 }
+			  }else {
+				  tempCollaborators.add(collaborator); 
 			  }
-			  else {
-				  tempCollaborators.add(collaborator);
-				  if(collaborator.isCollaboratorType(CollaboratorType.PROFESSOR)) {
-					  hasProfessor = true;
-				  }
-				  
-			  }
+			
 
 		}
 		
 		//if collaborators are valid, so add list
-		if(hasProfessor) {
-			collaborators.addAll(tempCollaborators);
-		}
-		
-		
+	    collaborators.addAll(tempCollaborators);		
 		return collaborators;
 	    	
 	}
@@ -123,7 +116,8 @@ public class ResearchProject{
 			  ||fundingValue  == null
 			  ||(goal == null || goal.isEmpty())
 			  ||(description == null || description.isEmpty())
-			  ||(collaborators == null || collaborators.isEmpty());
+			  ||(collaborators == null || collaborators.isEmpty())
+			  || (!hasProfessor());
 		    
 
 		
@@ -141,6 +135,19 @@ public class ResearchProject{
 	public String getId() {
 		// TODO Auto-generated method stub
 		return ID;
+	}
+
+
+
+	public boolean hasProfessor() {
+		// TODO Auto-generated method stub
+		
+		for (Collaborator collaborator : collaborators) {
+			if(collaborator.isCollaboratorType(CollaboratorType.PROFESSOR)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 
