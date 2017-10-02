@@ -9,6 +9,7 @@ import br.puc.inf.pss.model.project.StatusResearchProject;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
+import org.apache.maven.project.artifact.ProjectArtifact;
 import org.junit.Before;
 
 
@@ -129,6 +130,46 @@ public class ManagerAcademicServiceTest {
 		assertEquals(StatusResearchProject.IN_ELABORATION, col1.getProjects().get(2).getStatus());
 		assertEquals(StatusResearchProject.IN_ELABORATION, col1.getProjects().get(3).getStatus());
 	      
+	}
+	
+	@Test
+	public void shouldAddPublication() {
+		
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj1);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj2);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj3);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj4);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj5);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj55);
+		
+		
+		ResearchProject proj = ManagerAcademicService.manager.findProject("30");
+		assertEquals(StatusResearchProject.IN_PROGRESS, proj.getStatus());
+		
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ1);
+		
+		proj = ManagerAcademicService.manager.findProject("30");
+		
+		assertEquals(1, ManagerAcademicService.manager.getProductions().size());
+		
+		assertEquals(StatusResearchProject.CONCLUDED, proj.getStatus());
+		
+		assertEquals(1, proj.getPublications().size());
+		
+		
+		ManagerAcademicService.manager.addAcademicProduction(managerData.ori10);
+		
+		
+	   
+		assertEquals(2, ManagerAcademicService.manager.getProductions().size());
+		
+		Collaborator tea10 = ManagerAcademicService.manager.findCollaborator(managerData.tea10.getId());
+		assertEquals(1, tea10.getProductions().size());
+		assertEquals(managerData.ori10.getId(), tea10.getProductions().get(0).getId());
+		
+		ManagerAcademicService.manager.addAcademicProduction(managerData.ori14);
+		assertEquals(2, ManagerAcademicService.manager.getProductions().size());
+		
 	}
 	
 	

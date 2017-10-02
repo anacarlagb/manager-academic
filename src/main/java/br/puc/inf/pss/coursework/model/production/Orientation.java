@@ -8,21 +8,21 @@ import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 public class Orientation extends AcademicProduction{
 
 	
-	private String advisorId;
-	private String studentId;
+	private Collaborator advisor;
+	private Collaborator student;
 	
 	
 	 public Orientation(String iD,
 						String title,
-						String advisorId,
-						String studentId,
+						Collaborator advisor,
+						Collaborator student,
 						List<Collaborator> authors,
 						String idResearchProject) {
 		
 		super(iD, title, authors, idResearchProject, null);
 		
-		this.advisorId = advisorId;
-		this.studentId = studentId;
+		this.advisor = advisor;
+		this.student = student;
 	}
 
 	@Override

@@ -47,7 +47,10 @@ public abstract class AcademicProduction {
 	public String getIdResearchProject() {
 		return idResearchProject;
 	}
-
+   
+	public String getId() {
+		return ID;
+	}
 
 
 

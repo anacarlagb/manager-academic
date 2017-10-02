@@ -44,6 +44,7 @@ public class ManagerAcademicService {
     	
     	List<Collaborator> collaborators = new ArrayList<>();
     	
+    	
     	if(project.isElaboration()) {
     		project.setStatus(StatusResearchProject.IN_ELABORATION);		
     	}
@@ -137,17 +138,36 @@ public class ManagerAcademicService {
 	 * */
     public void addAcademicProduction(AcademicProduction production) {//TODO - constructor with basic data
 		
+    
     	if(production.validProduction()) {
     		productions.add(production);
+    		
     		if(production.getIdResearchProject() != null) {
     			addProductionInProject(production.getIdResearchProject(), production);
+    			
     		}
+    		
+    		addProductionInCollaborator(production, production.getAuthors());
     	}
     	
     	
 	}
     
     
+	private void addProductionInCollaborator(AcademicProduction production, List<Collaborator> authors) {
+		// TODO Auto-generated method stub
+		
+		for(Collaborator author: authors) {
+			
+			for(Collaborator collaborator: collaborators ) {
+				
+				if(author.getId().equals(collaborator.getId())) {
+					collaborator.addPublication(production);
+				}
+			}
+		}
+	}
+
 	public List<AcademicProduction> addProductionInProject(String researchProjectId, 
 			                            AcademicProduction production) {
 	
@@ -155,7 +175,7 @@ public class ManagerAcademicService {
 		
 		for(ResearchProject project: projects) {
 			if(project.getId() == researchProjectId) {
-			
+				
 				project.addPublication(production);
 				productions = project.getPublications();
 			}

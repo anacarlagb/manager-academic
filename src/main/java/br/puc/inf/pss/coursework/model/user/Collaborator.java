@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.puc.inf.pss.coursework.model.production.AcademicProduction;
+import br.puc.inf.pss.coursework.model.production.Publication;
 import br.puc.inf.pss.coursework.service.manager.Alocation;
 import br.puc.inf.pss.model.project.ResearchProject;
 
@@ -17,6 +19,8 @@ public abstract class Collaborator implements Alocation{
 	protected Date startDate;
 	protected CollaboratorType collaboratorType;
 	protected List<ResearchProject> projects;
+	protected List<AcademicProduction> productions;
+	
 	
 	public Collaborator(String id,
 						String name, 
@@ -34,6 +38,7 @@ public abstract class Collaborator implements Alocation{
 		this.startDate = startDate;
 		this.collaboratorType = collaboratorType;
 		this.projects = new ArrayList<>();
+		this.productions = new ArrayList<>();
 	}
 
 
@@ -67,6 +72,20 @@ public abstract class Collaborator implements Alocation{
 	public void addResearchProject(ResearchProject researchProject) {
 		// TODO Auto-generated method stub
 		projects.add(researchProject);
+	}
+
+
+
+	public void addPublication(AcademicProduction production) {
+		// TODO Auto-generated method stub
+		productions.add(production);
+	}
+
+
+
+	public List<AcademicProduction> getProductions() {
+		// TODO Auto-generated method stub
+		return productions;
 	}
 	
 	

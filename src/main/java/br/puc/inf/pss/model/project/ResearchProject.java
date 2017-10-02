@@ -46,6 +46,7 @@ public class ResearchProject{
 		this.description = description;
 		this.collaborators = collaborators;
 		this.status = status;
+		this.publications = new ArrayList<>();
 	
 	
 	}
