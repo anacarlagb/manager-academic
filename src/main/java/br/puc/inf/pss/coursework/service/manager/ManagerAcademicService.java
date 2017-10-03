@@ -7,6 +7,8 @@ import java.util.List;
 import br.puc.inf.pss.coursework.model.production.Publication;
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.production.AcademicProduction.AcademicProductionType;
+import br.puc.inf.pss.coursework.model.report.CollaboratorReport;
+import br.puc.inf.pss.coursework.model.report.ReportUtils;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.model.project.ResearchProject;
 import br.puc.inf.pss.model.project.StatusResearchProject;
@@ -177,7 +179,7 @@ public class ManagerAcademicService {
 			if(project.getId() == researchProjectId) {
 				
 				project.addPublication(production);
-				productions = project.getPublications();
+				productions = project.getProductions();
 			}
 		}
 		
@@ -225,6 +227,58 @@ public class ManagerAcademicService {
 		return null;
 	}
     
+    public CollaboratorReport generateCollaboratorReport(String collaboratorId) {
+    	
+    	Collaborator collaborator = findCollaborator(collaboratorId);
+    	CollaboratorReport report;
+    	
+    	List<ResearchProject> projectsInElaboration = new ArrayList<>();
+    	List<ResearchProject> projectsInProgress = new ArrayList<>();
+    	List<ResearchProject> projectsConcluded = new ArrayList<>();
+    	
+    	for(ResearchProject project : collaborator.getProjects()) {
+    		
+    		project.sortProductions();
+    		if(project.getStatus().equals(StatusResearchProject.IN_PROGRESS)) {
+    			
+    			projectsInProgress.add(project);
+    		}
+    		else
+    			if(project.getStatus().equals(StatusResearchProject.IN_ELABORATION)) {
+    				projectsInElaboration.add(project);
+    			}
+    		else
+    			if(project.getStatus().equals(StatusResearchProject.CONCLUDED)) {
+    				projectsConcluded.add(project);
+    			}
+    			
+    	}
+    	
+    	projectsInElaboration = ReportUtils.sortProjects(projectsInElaboration);
+    	projectsInProgress = ReportUtils.sortProjects(projectsInProgress);
+    	projectsConcluded = ReportUtils.sortProjects(projectsConcluded);
+    	
+    	
+    	
+    	report = new CollaboratorReport(collaborator.getName(), 
+    			                         collaborator.getEmail(),
+    			                          projectsInProgress,
+    			                          projectsInElaboration,
+    			                          projectsConcluded);
+    	
+    	
+    	return report;
+    	
+    }
+    
+//    public List<ResearchProject> generateResearchProjectReport(){
+//    	
+//    	List<Research> 
+//    	for(ResearchProject project: projects) {
+//    		
+//    		
+//    	}
+//    }
     
 	public AcademicProductionReport generateAcademicReport() {
 		return null;

@@ -9,6 +9,11 @@ import br.puc.inf.pss.model.project.StatusResearchProject;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import org.apache.maven.project.artifact.ProjectArtifact;
 import org.junit.Before;
 
@@ -41,6 +46,8 @@ public class ManagerAcademicServiceTest {
 	   
 	   assertEquals(12, ManagerAcademicService.manager.getCollaborators().size());
 	}
+	
+	
 	
 
 
@@ -154,7 +161,7 @@ public class ManagerAcademicServiceTest {
 		
 		assertEquals(StatusResearchProject.CONCLUDED, proj.getStatus());
 		
-		assertEquals(1, proj.getPublications().size());
+		assertEquals(1, proj.getProductions().size());
 		
 		
 		ManagerAcademicService.manager.addAcademicProduction(managerData.ori10);
@@ -164,8 +171,8 @@ public class ManagerAcademicServiceTest {
 		assertEquals(2, ManagerAcademicService.manager.getProductions().size());
 		
 		Collaborator tea10 = ManagerAcademicService.manager.findCollaborator(managerData.tea10.getId());
-		assertEquals(1, tea10.getProductions().size());
-		assertEquals(managerData.ori10.getId(), tea10.getProductions().get(0).getId());
+		assertEquals(2, tea10.getProductions().size());
+		//assertEquals(managerData.ori10.getId(), tea10.getProductions().get(0).getId());
 		
 		ManagerAcademicService.manager.addAcademicProduction(managerData.ori14);
 		assertEquals(2, ManagerAcademicService.manager.getProductions().size());
@@ -173,5 +180,31 @@ public class ManagerAcademicServiceTest {
 	}
 	
 	
+	@Test
+	public void shouldOrderDate() {
+		
+		List<Collaborator> cols = new ArrayList<Collaborator>();
+		
+		cols.add(managerData.deg1);
+		cols.add(managerData.deg3);
+		cols.add(managerData.deg2);
+		
+		
+		for(Collaborator col: cols) {
+			//After
+			System.out.println("After");
+			System.out.println(col.getStartDate());
+		}
+		
+		
+		
+		//Collections.sort(cols, Collections.reverseOrder());
+	    
+		
+		for(Collaborator col: cols) {
+			System.out.println(col.getStartDate());
+		}
+ 
 	
+	}
 }

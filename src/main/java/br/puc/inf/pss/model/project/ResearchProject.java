@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
+import br.puc.inf.pss.coursework.model.report.ReportUtils;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 import br.puc.inf.pss.coursework.service.manager.Alocation;
@@ -20,7 +21,7 @@ public class ResearchProject{
 	private String goal;
 	private String description;
 	private List<Collaborator> collaborators;
-	private List<AcademicProduction> publications;
+	private List<AcademicProduction> productions;
 	private StatusResearchProject status;
 	
 	
@@ -46,7 +47,7 @@ public class ResearchProject{
 		this.description = description;
 		this.collaborators = collaborators;
 		this.status = status;
-		this.publications = new ArrayList<>();
+		this.productions = new ArrayList<>();
 	
 	
 	}
@@ -64,7 +65,7 @@ public class ResearchProject{
 	public void addPublication(AcademicProduction publication) {
 	
 		if(status.equals(StatusResearchProject.IN_PROGRESS)) {
-		   publications.add(publication);
+		   productions.add(publication);
 		   status = StatusResearchProject.CONCLUDED;
 		}
 		
@@ -102,8 +103,8 @@ public class ResearchProject{
 	}
 
 
-	public List<AcademicProduction> getPublications() {
-		return publications;
+	public List<AcademicProduction> getProductions() {
+		return productions;
 	}
 
 
@@ -150,6 +151,22 @@ public class ResearchProject{
 		}
 		return false;
 	}
+
+
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+
+
+	public void sortProductions() {
+		// TODO Auto-generated method stub
+		ReportUtils.sortProductions(productions) ;
+	}
+	
+	
+	
 
 
 

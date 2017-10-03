@@ -87,6 +87,27 @@ public abstract class Collaborator implements Alocation{
 		// TODO Auto-generated method stub
 		return productions;
 	}
+
+
+
+	public Date getStartDate() {
+		// TODO Auto-generated method stub
+		return startDate;
+	}
+
+
+
+	public String getEmail() {
+		// TODO Auto-generated method stub
+		return email;
+	}
+
+
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return name;
+	}
 	
 	
 	

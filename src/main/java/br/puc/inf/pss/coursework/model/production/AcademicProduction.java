@@ -13,7 +13,7 @@ public abstract class AcademicProduction {
 	protected String idResearchProject;
 	protected Collaborator advisor;
 	protected List<Collaborator> collaborators;
-	
+	protected int year;
 	
 	
 	
@@ -27,9 +27,10 @@ public abstract class AcademicProduction {
 		ID = String.valueOf(System.currentTimeMillis());
 		
 		this.title = title;
-		this.authors = authors;
+		this.authors = collaborators;
 		this.idResearchProject = idResearchProject;
 		this.advisor = advisor;
+		
 	}
 
 
@@ -39,6 +40,12 @@ public abstract class AcademicProduction {
 	public enum AcademicProductionType {
 		PUBLICATION, ORIENTATION;
 	};
+	
+	public int getYear() {
+		return year;
+	}
+	
+	
 	
 	
 	
