@@ -5,8 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
+import br.puc.inf.pss.coursework.model.project.ResearchProject;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
-import br.puc.inf.pss.model.project.ResearchProject;
 
 public class ReportUtils {
 

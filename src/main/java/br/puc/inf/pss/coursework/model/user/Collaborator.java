@@ -6,8 +6,8 @@ import java.util.List;
 
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.production.Publication;
+import br.puc.inf.pss.coursework.model.project.ResearchProject;
 import br.puc.inf.pss.coursework.service.manager.Alocation;
-import br.puc.inf.pss.model.project.ResearchProject;
 
 
 public abstract class Collaborator implements Alocation{

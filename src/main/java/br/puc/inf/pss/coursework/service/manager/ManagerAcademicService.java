@@ -7,13 +7,13 @@ import java.util.List;
 import br.puc.inf.pss.coursework.model.production.Publication;
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.production.AcademicProduction.AcademicProductionType;
+import br.puc.inf.pss.coursework.model.project.ResearchProject;
+import br.puc.inf.pss.coursework.model.project.StatusResearchProject;
 import br.puc.inf.pss.coursework.model.report.AcademicReport;
 import br.puc.inf.pss.coursework.model.report.CollaboratorReport;
 import br.puc.inf.pss.coursework.model.report.ReportUtils;
 import br.puc.inf.pss.coursework.model.report.ResearchProjectReport;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
-import br.puc.inf.pss.model.project.ResearchProject;
-import br.puc.inf.pss.model.project.StatusResearchProject;
 
 
 public class ManagerAcademicService {
@@ -296,11 +296,7 @@ public class ManagerAcademicService {
 				                           totalProjects,
 				                           totalPublicationProduction,
 				                           totalOrientationProduction);
- 	
-		
-		
-	
-		
+ 
 		
 		return academicReport;
 	}

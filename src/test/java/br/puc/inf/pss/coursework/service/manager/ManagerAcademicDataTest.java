@@ -13,14 +13,14 @@ import org.junit.Test;
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.production.Orientation;
 import br.puc.inf.pss.coursework.model.production.Publication;
+import br.puc.inf.pss.coursework.model.project.ResearchProject;
+import br.puc.inf.pss.coursework.model.project.StatusResearchProject;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 import br.puc.inf.pss.coursework.model.user.DegreeStudent;
 import br.puc.inf.pss.coursework.model.user.MasterStudent;
 import br.puc.inf.pss.coursework.model.user.PHDStudent;
 import br.puc.inf.pss.coursework.model.user.Teacher;
-import br.puc.inf.pss.model.project.ResearchProject;
-import br.puc.inf.pss.model.project.StatusResearchProject;
 import edu.emory.mathcs.backport.java.util.Arrays;
 
 public class ManagerAcademicDataTest {

@@ -2,8 +2,8 @@ package br.puc.inf.pss.coursework.model.user;
 
 import java.util.Date;
 
-import br.puc.inf.pss.model.project.ResearchProject;
-import br.puc.inf.pss.model.project.StatusResearchProject;
+import br.puc.inf.pss.coursework.model.project.ResearchProject;
+import br.puc.inf.pss.coursework.model.project.StatusResearchProject;
 
 public class DegreeStudent extends Student{
 	

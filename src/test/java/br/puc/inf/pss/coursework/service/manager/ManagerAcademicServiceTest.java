@@ -2,12 +2,12 @@ package br.puc.inf.pss.coursework.service.manager;
 
 import org.junit.Test;
 
+import br.puc.inf.pss.coursework.model.project.ResearchProject;
+import br.puc.inf.pss.coursework.model.project.StatusResearchProject;
 import br.puc.inf.pss.coursework.model.report.AcademicReport;
 import br.puc.inf.pss.coursework.model.report.CollaboratorReport;
 import br.puc.inf.pss.coursework.model.report.ReportUtils;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
-import br.puc.inf.pss.model.project.ResearchProject;
-import br.puc.inf.pss.model.project.StatusResearchProject;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;

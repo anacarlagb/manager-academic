@@ -2,7 +2,7 @@ package br.puc.inf.pss.coursework.model.report;
 
 import java.util.List;
 
-import br.puc.inf.pss.model.project.ResearchProject;
+import br.puc.inf.pss.coursework.model.project.ResearchProject;
 
 public class ResearchProjectReport {
 

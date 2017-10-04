@@ -1,4 +1,4 @@
-package br.puc.inf.pss.model.project;
+package br.puc.inf.pss.coursework.model.project;
 
 import java.util.ArrayList;
 import java.util.Date;
