@@ -7,8 +7,10 @@ import java.util.List;
 import br.puc.inf.pss.coursework.model.production.Publication;
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.production.AcademicProduction.AcademicProductionType;
+import br.puc.inf.pss.coursework.model.report.AcademicReport;
 import br.puc.inf.pss.coursework.model.report.CollaboratorReport;
 import br.puc.inf.pss.coursework.model.report.ReportUtils;
+import br.puc.inf.pss.coursework.model.report.ResearchProjectReport;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.model.project.ResearchProject;
 import br.puc.inf.pss.model.project.StatusResearchProject;
@@ -99,11 +101,9 @@ public class ManagerAcademicService {
 		
 	}
 
-	private void addProjectInCollaborators(List<Collaborator> allocatedCollaborators, ResearchProject researchProject) {
+	private void addProjectInCollaborators(List<Collaborator> allocatedCollaborators, 
+										   ResearchProject researchProject) {
 		// TODO Auto-generated method stub
-		
-		
-		
 		for(Collaborator allocatedCollaborator :allocatedCollaborators) {
 			
 			
@@ -118,19 +118,6 @@ public class ManagerAcademicService {
 	
 		
 	}
-
-//	private List<Collaborator> getCollaboratorsListById(List<String> collaboratorsId) {
-//		// TODO Auto-generated method stub
-//		
-//		List<Collaborator> collaboratorsList = new ArrayList<>();
-//		for(String collaboratorId : collaboratorsId) {
-//			
-//			Collaborator collaborator = findCollaborator(collaboratorId);
-//			collaboratorsList.add(collaborator);
-//		}
-//		return collaboratorsList;
-//	}
-
 
 	/**
 	 * Add production to database 
@@ -187,19 +174,6 @@ public class ManagerAcademicService {
 		
 	}
 
-	
-	private boolean hasPublicationsByProject(String researchProjectId) {
-		// TODO Auto-generated method stub
-		for(AcademicProduction publication: productions) {
-			
-			
-	       if(publication.getIdResearchProject().equals(researchProjectId)) {
-	    	   return true;
-	       }		
-		}
-		return false;
-	}
-	
 	
    /*--------------------------------------------REPORTS ---------------------------------- */
 
@@ -271,17 +245,65 @@ public class ManagerAcademicService {
     	
     }
     
-//    public List<ResearchProject> generateResearchProjectReport(){
-//    	
-//    	List<Research> 
-//    	for(ResearchProject project: projects) {
-//    		
-//    		
-//    	}
-//    }
+    public ResearchProject generateResearchProjectReport(String researchProjecId){
     
-	public AcademicProductionReport generateAcademicReport() {
-		return null;
+    	ResearchProject project = findProject(researchProjecId);
+    	project.sortProductions();
+    	
+    	return project;
+    }
+    
+	public AcademicReport generateAcademicReport() {
+		
+		AcademicReport academicReport = null;
+		
+		int totalProjectsInElaboration = 0;
+		int totalProjectsInProgress = 0;
+		int totalProjectsConcluded = 0;
+		int totalPublicationProduction = 0;
+		int totalOrientationProduction = 0;
+		
+		int totalProjects = projects.size();
+		int totalCollaborators = collaborators.size();
+		for (ResearchProject project : projects) {
+
+			if (project.getStatus().equals(StatusResearchProject.IN_PROGRESS)) {
+				totalProjectsInProgress ++;
+				
+			} else if (project.getStatus().equals(StatusResearchProject.IN_ELABORATION)) {
+				totalProjectsInElaboration ++;
+				
+			} else if (project.getStatus().equals(StatusResearchProject.CONCLUDED)) {
+				totalProjectsConcluded ++;
+			}
+
+		}
+		for(AcademicProduction production : productions) {
+			
+			if(production.isAcademicProductionType(AcademicProductionType.PUBLICATION)) {
+				totalPublicationProduction ++;
+			}
+			else 
+				if(production.isAcademicProductionType(AcademicProductionType.ORIENTATION)) {
+					totalOrientationProduction ++;
+			}
+		}
+		
+		
+		academicReport = new AcademicReport(totalCollaborators,
+				                           totalProjectsInElaboration, 
+				                           totalProjectsInProgress,
+				                           totalProjectsConcluded,
+				                           totalProjects,
+				                           totalPublicationProduction,
+				                           totalOrientationProduction);
+ 	
+		
+		
+	
+		
+		
+		return academicReport;
 	}
 
 	public List<ResearchProject> getProjects() {

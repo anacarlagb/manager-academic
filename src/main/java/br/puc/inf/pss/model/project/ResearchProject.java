@@ -13,7 +13,7 @@ import br.puc.inf.pss.coursework.service.manager.Alocation;
 public class ResearchProject{
 	
 	private String ID;
-	private String title;
+	public final String title;
 	private Date startDate;
 	private Date endDate;
 	private String fundingInstitutionName;
@@ -162,7 +162,7 @@ public class ResearchProject{
 
 	public void sortProductions() {
 		// TODO Auto-generated method stub
-		ReportUtils.sortProductions(productions) ;
+		ReportUtils.sortProductions(productions);
 	}
 	
 	

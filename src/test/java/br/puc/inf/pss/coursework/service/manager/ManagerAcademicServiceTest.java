@@ -2,6 +2,8 @@ package br.puc.inf.pss.coursework.service.manager;
 
 import org.junit.Test;
 
+import br.puc.inf.pss.coursework.model.report.CollaboratorReport;
+import br.puc.inf.pss.coursework.model.report.ReportUtils;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.model.project.ResearchProject;
 import br.puc.inf.pss.model.project.StatusResearchProject;
@@ -47,10 +49,6 @@ public class ManagerAcademicServiceTest {
 	   assertEquals(12, ManagerAcademicService.manager.getCollaborators().size());
 	}
 	
-	
-	
-
-
 	
 	
 	
@@ -179,32 +177,86 @@ public class ManagerAcademicServiceTest {
 		
 	}
 	
-	
 	@Test
-	public void shouldOrderDate() {
+	public void sortStartDateCollaborator() {
 		
-		List<Collaborator> cols = new ArrayList<Collaborator>();
-		
-		cols.add(managerData.deg1);
-		cols.add(managerData.deg3);
-		cols.add(managerData.deg2);
-		
+		List<Collaborator> cols = ReportUtils.orderDescendingList(ManagerAcademicService.manager.getCollaborators());
 		
 		for(Collaborator col: cols) {
-			//After
-			System.out.println("After");
-			System.out.println(col.getStartDate());
+			
+			System.out.println(col.getStartDate().toString());
 		}
 		
-		
-		
-		//Collections.sort(cols, Collections.reverseOrder());
-	    
-		
-		for(Collaborator col: cols) {
-			System.out.println(col.getStartDate());
-		}
- 
 	
 	}
+	
+	
+	@Test
+	public void shouldCollaboratorReport() {
+		
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj1);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj2);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj3);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj4);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj5);
+		
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ4);
+		
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj55);
+		
+		
+		
+		CollaboratorReport report = 
+				ManagerAcademicService.manager.generateCollaboratorReport(managerData.deg3.getId());
+		
+		assertEquals(1, report.projectsConcluded.size());
+		assertEquals(2, report.projectsInProgress.size());
+		assertEquals(2, report.projectsInElaboration.size());
+		
+		assertEquals("Mário", report.name);
+		
+		assertEquals(1, report.projectsConcluded.get(0).getProductions().size());
+		
+		// "Data 02/10/2010"
+		assertEquals("61", report.projectsInProgress.get(0).getId());
+		// "Data 02/10/2009"
+		assertEquals("40", report.projectsInProgress.get(1).getId());
+		
+	
+	}
+	
+	@Test
+	public void shouldGenerateProjectReport() {
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj1);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj2);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj3);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj4);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj5);
+		
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ1);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ2);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ3);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ4);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ5);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ6);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ7);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ8);
+		
+		
+		ResearchProject project = ManagerAcademicService.manager.generateResearchProjectReport(managerData.proj1.getId());
+		
+		assertEquals(9, project.getCollaborators().size());
+	    assertEquals("Engenharia de Software para Sistemas Multi-Agentes (ESMA)", project.title);
+		//assertEquals(3, project.getProductions().size());
+		
+		//assertEquals(2006, project.getProductions().get(0).getYear());
+		//assertEquals(2005, project.getProductions().get(2).getYear());
+	} 
+	
+	public void shouldGenerateAcademicReport() {
+		
+	}
+	
+	
+	
 }
