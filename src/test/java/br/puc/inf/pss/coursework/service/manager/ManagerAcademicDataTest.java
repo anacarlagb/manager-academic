@@ -5,6 +5,7 @@ package br.puc.inf.pss.coursework.service.manager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,6 @@ import br.puc.inf.pss.coursework.model.user.DegreeStudent;
 import br.puc.inf.pss.coursework.model.user.MasterStudent;
 import br.puc.inf.pss.coursework.model.user.PHDStudent;
 import br.puc.inf.pss.coursework.model.user.Teacher;
-import edu.emory.mathcs.backport.java.util.Arrays;
 
 public class ManagerAcademicDataTest {
 	 

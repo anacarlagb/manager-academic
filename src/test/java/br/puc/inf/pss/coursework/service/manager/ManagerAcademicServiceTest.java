@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.maven.project.artifact.ProjectArtifact;
+
 import org.junit.Before;
 
 
