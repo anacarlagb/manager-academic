@@ -2,6 +2,7 @@ package br.puc.inf.pss.coursework.service.manager;
 
 import org.junit.Test;
 
+import br.puc.inf.pss.coursework.model.report.AcademicReport;
 import br.puc.inf.pss.coursework.model.report.CollaboratorReport;
 import br.puc.inf.pss.coursework.model.report.ReportUtils;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
@@ -253,7 +254,51 @@ public class ManagerAcademicServiceTest {
 		//assertEquals(2005, project.getProductions().get(2).getYear());
 	} 
 	
+	@Test
 	public void shouldGenerateAcademicReport() {
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj1);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj2);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj3);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj4);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj5);
+		ManagerAcademicService.manager.elaborateResearchProject(managerData.proj55);
+		
+		
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ1);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ2);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ3);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ4);
+		
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ5);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ6);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ7);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.publ8);
+		
+		
+		ManagerAcademicService.manager.addAcademicProduction(managerData.ori9);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.ori10);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.ori11);
+		
+		ManagerAcademicService.manager.addAcademicProduction(managerData.ori12);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.ori13);
+		ManagerAcademicService.manager.addAcademicProduction(managerData.ori14);
+		
+		
+		AcademicReport academicReport = ManagerAcademicService.manager.generateAcademicReport();
+		
+		assertEquals(12, academicReport.totalCollaborators);
+		assertEquals(6, academicReport.totalProjects);
+		assertEquals(2 ,academicReport.totalProjectsInElaboration);
+		assertEquals(2 ,academicReport.totalProjectsInProgress);
+		assertEquals(2 ,academicReport.totalProjectsConcluded);
+		
+		assertEquals(8, academicReport.totalPublicationProduction);
+		assertEquals(5, academicReport.totalOrientationProduction);
+		
+		
+		
+		
+		
 		
 	}
 	

@@ -3,6 +3,7 @@ package br.puc.inf.pss.coursework.model.production;
 import java.util.List;
 
 import br.puc.inf.pss.coursework.model.user.Collaborator;
+import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 
 public abstract class AcademicProduction {
 
@@ -14,6 +15,7 @@ public abstract class AcademicProduction {
 	protected Collaborator advisor;
 	protected List<Collaborator> collaborators;
 	protected int year;
+	protected AcademicProductionType academicProductionType;
 	
 	
 	
@@ -22,7 +24,8 @@ public abstract class AcademicProduction {
 							  String title,
 							  List<Collaborator> collaborators,
 							  String idResearchProject,
-							  Collaborator advisor) {
+							  Collaborator advisor, 
+							  AcademicProductionType academicProductionType) {
 		
 		ID = String.valueOf(System.currentTimeMillis());
 		
@@ -30,6 +33,7 @@ public abstract class AcademicProduction {
 		this.authors = collaborators;
 		this.idResearchProject = idResearchProject;
 		this.advisor = advisor;
+		this.academicProductionType = academicProductionType;
 		
 	}
 
@@ -62,9 +66,9 @@ public abstract class AcademicProduction {
 
 
 
-	public boolean isAcademicProductionType(AcademicProductionType orientation) {
+	public boolean isAcademicProductionType(AcademicProductionType productionType) {
 		// TODO Auto-generated method stub
-		return false;
+		return academicProductionType.equals(productionType);
 	}
 	
 	

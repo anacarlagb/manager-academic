@@ -18,7 +18,7 @@ public class Publication extends AcademicProduction{
 			           String idResearchProject,
 			           Collaborator advisor) {
 		
-		super(iD, title, authors, idResearchProject, advisor);
+		super(iD, title, authors, idResearchProject, advisor, AcademicProductionType.PUBLICATION);
 		this.conferenceName = conferenceName;
 		this.year = year;
 	}

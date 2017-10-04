@@ -289,7 +289,6 @@ public class ManagerAcademicService {
 			}
 		}
 		
-		
 		academicReport = new AcademicReport(totalCollaborators,
 				                           totalProjectsInElaboration, 
 				                           totalProjectsInProgress,

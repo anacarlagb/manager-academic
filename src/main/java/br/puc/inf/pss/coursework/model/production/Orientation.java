@@ -19,7 +19,7 @@ public class Orientation extends AcademicProduction{
 						List<Collaborator> authors,
 						String idResearchProject) {
 		
-		super(iD, title, authors, idResearchProject, null);
+		super(iD, title, authors, idResearchProject, null, AcademicProductionType.ORIENTATION);
 		
 		this.advisor = advisor;
 		this.student = student;

@@ -320,7 +320,7 @@ public class ManagerAcademicDataTest {
 				tea10, phd9,cols23List, null);
 		
 		
-		Collaborator[] cols24 = {tea10, phd9};
+		Collaborator[] cols24 = {phd8, phd9};
 		List<Collaborator> cols24List = new ArrayList<>();
 		cols24List.addAll(Arrays.asList(cols24));
 		ori14 = new Orientation(null,
