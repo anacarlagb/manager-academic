@@ -23,13 +23,18 @@ public class ManagerAcademicController {
 	
 	@POST
     @Path("/collaborator")
-	public Result addCollaborator(@Body String bodyCollaborator) {
-		 
+	public Result addCollaborator(String userId, @Body String bodyCollaborator) {
+		
+		
+		System.out.println("BODY:" + bodyCollaborator);
 		JsonNode collaboratorAsJson = json.parse(bodyCollaborator);
 		Collaborator collaborator = json.fromJson(collaboratorAsJson, Collaborator.class);
 	
-		ManagerAcademicService.manager.addColaborator(collaborator);
-		return Results.ok(201);
+		collaborator = ManagerAcademicService.manager.addColaborator(collaborator);
+		if(collaborator != null){
+			return Results.json(collaborator);
+		}
+		return Results.json(500);
 	}
 	
 	@POST
@@ -58,6 +63,7 @@ public class ManagerAcademicController {
 	@Path("/collaborator/:collaboratorId/report")
 	public Result generateCollaboratorReport(String userId, String collaboratorId) {
 		
+		System.out.println("dalkf");
 		CollaboratorReport report = ManagerAcademicService.manager
 				                                          .generateCollaboratorReport(collaboratorId);
 		

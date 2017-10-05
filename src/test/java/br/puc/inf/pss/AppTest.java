@@ -4,9 +4,11 @@ import static io.restassured.RestAssured.get;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
+import org.jooby.test.Client;
 import org.jooby.test.JoobyRule;
 import org.jooby.test.MockRouter;
 import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -21,6 +23,9 @@ public class AppTest {
   @ClassRule
   public static JoobyRule app = new JoobyRule(new App());
 
+  @Rule
+  public Client server = new Client("http://localhost:8080");
+  
   @Test
   public void integrationTest() {
     get("/")

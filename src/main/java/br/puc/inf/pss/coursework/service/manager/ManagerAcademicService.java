@@ -32,8 +32,10 @@ public class ManagerAcademicService {
 	 * Add collaborattor to database  
 	 * 
 	 **/
-	public void addColaborator(Collaborator colaborator) {
-	 	collaborators.add(colaborator);
+	public Collaborator addColaborator(Collaborator collaborator) {
+	 	collaborators.add(collaborator);
+	 	
+	 	return findCollaborator(collaborator.getId());
 	}
 	
 	
