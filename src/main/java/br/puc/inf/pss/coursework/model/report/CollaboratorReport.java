@@ -2,6 +2,9 @@ package br.puc.inf.pss.coursework.model.report;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.puc.inf.pss.coursework.model.project.ResearchProject;
 
 public class CollaboratorReport {
@@ -13,12 +16,12 @@ public class CollaboratorReport {
 	public final List<ResearchProject> projectsConcluded;
 	
 	
-	
-	public CollaboratorReport(String name,
-			                  String email,
-			                  List<ResearchProject> projectsInProgress,
-			                  List<ResearchProject> projectInElaboration,
-			                  List<ResearchProject> projectsConcluded) {
+	@JsonCreator
+	public CollaboratorReport(@JsonProperty("name") String name,
+			                  @JsonProperty("email") String email,
+			                  @JsonProperty("projectsInProgress") List<ResearchProject> projectsInProgress,
+			                  @JsonProperty("projectInElaboration") List<ResearchProject> projectInElaboration,
+			                  @JsonProperty("projectConcluded") List<ResearchProject> projectsConcluded) {
 
 		
 		this.name = name;

@@ -12,7 +12,6 @@ import br.puc.inf.pss.coursework.model.project.StatusResearchProject;
 import br.puc.inf.pss.coursework.model.report.AcademicReport;
 import br.puc.inf.pss.coursework.model.report.CollaboratorReport;
 import br.puc.inf.pss.coursework.model.report.ReportUtils;
-import br.puc.inf.pss.coursework.model.report.ResearchProjectReport;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 
 

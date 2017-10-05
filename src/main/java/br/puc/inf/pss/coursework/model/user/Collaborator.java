@@ -4,12 +4,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.production.Publication;
 import br.puc.inf.pss.coursework.model.project.ResearchProject;
 import br.puc.inf.pss.coursework.service.manager.Alocation;
 
-
+@JsonTypeInfo(use= JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="collaboratorType")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Admin.class, name = "ADMIN"),
+        @JsonSubTypes.Type(value = DegreeStudent.class, name = "DEGREE_STUDENT"),
+        @JsonSubTypes.Type(value = MasterStudent.class, name = "MASTER_STUDENT"),
+        @JsonSubTypes.Type(value = PHDStudent.class, name = "PHD_STUDENT"),
+        @JsonSubTypes.Type(value = Researcher.class, name = "RESEARCHER"),
+        @JsonSubTypes.Type(value = Student.class, name = "STUDENT"),
+        @JsonSubTypes.Type(value = Teacher.class, name = "TEACHER")
+})
 public abstract class Collaborator implements Alocation{
      
 	
@@ -21,12 +35,12 @@ public abstract class Collaborator implements Alocation{
 	protected List<ResearchProject> projects;
 	protected List<AcademicProduction> productions;
 	
-	
-	public Collaborator(String id,
-						String name, 
-						String email,
-						Date startDate, 
-						CollaboratorType collaboratorType) {
+	@JsonCreator
+	public Collaborator(@JsonProperty("id") String id,
+			            @JsonProperty("name") String name, 
+			            @JsonProperty("email") String email,
+			            @JsonProperty("startDate") Date startDate, 
+			            @JsonProperty("collaboratorType") CollaboratorType collaboratorType) {
 		
 		/*If id is empty, so create id, else assigns*/
 		this.ID = (id == null || id.isEmpty()) ? 

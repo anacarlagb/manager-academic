@@ -2,6 +2,9 @@ package br.puc.inf.pss.coursework.model.user;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.puc.inf.pss.coursework.model.project.ResearchProject;
 import br.puc.inf.pss.coursework.model.project.StatusResearchProject;
 
@@ -9,12 +12,13 @@ public class DegreeStudent extends Student{
 	
 	
 	
-	public DegreeStudent(String ID, 
-							String name,
-							String email,
-							Date startDate, 
-							CollaboratorType collaboratorType, 
-							String advisorId) {
+	@JsonCreator
+	public DegreeStudent(@JsonProperty("ID") String ID, 
+			             @JsonProperty("name") String name,
+			             @JsonProperty("email") String email,
+			             @JsonProperty("startDate") Date startDate, 
+			             @JsonProperty("collaboratorType") CollaboratorType collaboratorType, 
+			             @JsonProperty("advisorId") String advisorId) {
 		
 		super(ID, name, email, startDate, collaboratorType, advisorId);
 		

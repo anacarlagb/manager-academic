@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.report.ReportUtils;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 import br.puc.inf.pss.coursework.service.manager.Alocation;
+
+
 
 public class ResearchProject{
 	
@@ -25,17 +30,17 @@ public class ResearchProject{
 	private StatusResearchProject status;
 	
 	
-	
-	public ResearchProject(String ID, 
-			               String title, 
-						   Date startDate,  
-						   Date endDate,
-						   String fundingInstitutionName, 
-						   Double fundingValue, 
-						   String goal, 
-						   String description,
-						   List<Collaborator> collaborators,
-						   StatusResearchProject status) {
+   @JsonCreator	
+	public ResearchProject(@JsonProperty("ID") String ID, 
+			               @JsonProperty("title") String title, 
+			               @JsonProperty("startDate") Date startDate,  
+			               @JsonProperty("endDate") Date endDate,
+			               @JsonProperty("fundingInstitutionName") String fundingInstitutionName, 
+			               @JsonProperty("fundingValue") Double fundingValue, 
+			               @JsonProperty("goal") String goal, 
+			               @JsonProperty("description") String description,
+			               @JsonProperty("collaborators") List<Collaborator> collaborators,
+			               @JsonProperty("status") StatusResearchProject status) {
 
 		this.ID = ID;
 		this.title = title;

@@ -12,7 +12,6 @@ import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.project.ResearchProject;
 import br.puc.inf.pss.coursework.model.report.AcademicReport;
 import br.puc.inf.pss.coursework.model.report.CollaboratorReport;
-import br.puc.inf.pss.coursework.model.report.ResearchProjectReport;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.coursework.service.manager.ManagerAcademicService;
 import br.puc.inf.pss.utils.JsonParser;
