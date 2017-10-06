@@ -26,13 +26,13 @@ public class ManagerAcademicController {
 	public Result addCollaborator(String userId, @Body String bodyCollaborator) {
 		
 		
-		System.out.println("BODY:" + bodyCollaborator);
+		
 		JsonNode collaboratorAsJson = json.parse(bodyCollaborator);
 		Collaborator collaborator = json.fromJson(collaboratorAsJson, Collaborator.class);
 	
 		collaborator = ManagerAcademicService.manager.addColaborator(collaborator);
 		if(collaborator != null){
-			return Results.json(collaborator);
+			return Results.ok(json.toJson(collaborator));
 		}
 		return Results.json(500);
 	}

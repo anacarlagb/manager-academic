@@ -2,6 +2,9 @@ package br.puc.inf.pss.coursework.controller.manager;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -47,25 +50,39 @@ public class ManagerAcademicControllerTest{
 
     @Rule
     public Client server = new Client("http://localhost:8080");
-   
+    
+    DefaultHttpClient httpClient = new DefaultHttpClient();
+    HttpResponse response;
+	String serverName = "http://localhost:8080";
 	
-	
+    public String toString(InputStream in) throws IOException {
+    	int ch;
+    	StringBuilder sb = new StringBuilder();
+    	while((ch = in.read()) != -1 ) {
+    		sb.append((char) ch);
+    	}
+    	return sb.toString();
+    	
+    }
 	@Test
 	public void shouldAddCollaborator() throws Exception {
 		managerData.init();
 		
-		DefaultHttpClient httpClient = new DefaultHttpClient();
-		HttpPost postRequest = new HttpPost(
-			"http://localhost:8080/app/user/" + "ardafsd"+"/collaborator");
-
+		HttpPost postRequest = new HttpPost(serverName + "/app/user/" + "ardafsd"+"/collaborator");
 		StringEntity input = new StringEntity(json.toJson(managerData.deg1).toString());
 		input.setContentType("application/json");
 		postRequest.setEntity(input);
 		
-		HttpResponse response = httpClient.execute(postRequest);
+		response = httpClient.execute(postRequest);
+		
+		
+		String addedCollaboratorAsText = toString(response.getEntity().getContent());
+		JsonNode addedCollaboratorAsJson = json.parse(addedCollaboratorAsText);
+		
+		assertEquals(addedCollaboratorAsJson.get("id").asInt(), 1001);
+		assertEquals(addedCollaboratorAsJson.get("name").asText(), "Maria");
+		assertEquals(addedCollaboratorAsJson.get("email").asText(), "maria@email.br");
 
-		
-		
 
 	}
 	

@@ -27,11 +27,11 @@ import br.puc.inf.pss.coursework.service.manager.Alocation;
 public abstract class Collaborator implements Alocation{
      
 	
-	private String ID;
-	protected String name;
-	protected String email;
-	protected Date startDate;
-	protected CollaboratorType collaboratorType;
+	public final String id;
+	public final String name;
+	public final String email;
+	public final Date startDate;
+	public final CollaboratorType collaboratorType;
 	protected List<ResearchProject> projects;
 	protected List<AcademicProduction> productions;
 	
@@ -43,7 +43,7 @@ public abstract class Collaborator implements Alocation{
 			            @JsonProperty("collaboratorType") CollaboratorType collaboratorType) {
 		
 		/*If id is empty, so create id, else assigns*/
-		this.ID = (id == null || id.isEmpty()) ? 
+		this.id = (id == null || id.isEmpty()) ? 
 				  String.valueOf(System.currentTimeMillis()) : 
 			      id;
 		
@@ -78,7 +78,7 @@ public abstract class Collaborator implements Alocation{
 
 	public String getId() {
 		// TODO Auto-generated method stub
-		return ID;
+		return id;
 	}
 
 
