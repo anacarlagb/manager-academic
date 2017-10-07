@@ -8,12 +8,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Teacher extends Collaborator{
 
 	@JsonCreator
-	public Teacher(@JsonProperty("iD") String iD, 
+	public Teacher(@JsonProperty("id") String id, 
 			       @JsonProperty("name") String name, 
 			       @JsonProperty("email") String email, 
 			       @JsonProperty("startDate") Date startDate, 
 			       @JsonProperty("collaboratorType") CollaboratorType collaboratorType) {
-		super(iD, name, email, startDate, collaboratorType);
+		
+		super(id, name, email, startDate, collaboratorType);
 		// TODO Auto-generated constructor stub
 	}
 

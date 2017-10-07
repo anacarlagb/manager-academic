@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -14,15 +15,14 @@ import br.puc.inf.pss.coursework.model.production.Publication;
 import br.puc.inf.pss.coursework.model.project.ResearchProject;
 import br.puc.inf.pss.coursework.service.manager.Alocation;
 
-@JsonTypeInfo(use= JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="collaboratorType")
+@JsonTypeInfo(use= JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Admin.class, name = "ADMIN"),
         @JsonSubTypes.Type(value = DegreeStudent.class, name = "DEGREE_STUDENT"),
         @JsonSubTypes.Type(value = MasterStudent.class, name = "MASTER_STUDENT"),
         @JsonSubTypes.Type(value = PHDStudent.class, name = "PHD_STUDENT"),
         @JsonSubTypes.Type(value = Researcher.class, name = "RESEARCHER"),
-        @JsonSubTypes.Type(value = Student.class, name = "STUDENT"),
-        @JsonSubTypes.Type(value = Teacher.class, name = "TEACHER")
+        @JsonSubTypes.Type(value = Teacher.class, name = "PROFESSOR")
 })
 public abstract class Collaborator implements Alocation{
      
@@ -31,7 +31,7 @@ public abstract class Collaborator implements Alocation{
 	public final String name;
 	public final String email;
 	public final Date startDate;
-	public final CollaboratorType collaboratorType;
+	private CollaboratorType collaboratorType;
 	protected List<ResearchProject> projects;
 	protected List<AcademicProduction> productions;
 	
@@ -58,11 +58,11 @@ public abstract class Collaborator implements Alocation{
 
 
 	public enum CollaboratorType {
-		PROFESSOR, DEGREE_STUDENT, MASTER_STUDENT,PHD_STUDENT,RESEARCHER
+		ADMIN,PROFESSOR, DEGREE_STUDENT, MASTER_STUDENT,PHD_STUDENT,RESEARCHER
 	};
 	
 	
-	
+	@JsonIgnore
 	public boolean isCollaboratorType(CollaboratorType collaboratorType) {
 		
 		return this.collaboratorType.equals(collaboratorType);
@@ -121,6 +121,18 @@ public abstract class Collaborator implements Alocation{
 	public String getName() {
 		// TODO Auto-generated method stub
 		return name;
+	}
+
+
+
+	public CollaboratorType getCollaboratorType() {
+		return collaboratorType;
+	}
+
+
+
+	public void setCollaboratorType(CollaboratorType collaboratorType) {
+		this.collaboratorType = collaboratorType;
 	}
 	
 	

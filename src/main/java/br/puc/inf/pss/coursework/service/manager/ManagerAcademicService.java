@@ -45,7 +45,7 @@ public class ManagerAcademicService {
      * After valid collaborator, if collaborators are valid
      * 
      * */
-    public void elaborateResearchProject(ResearchProject project) {
+    public ResearchProject elaborateResearchProject(ResearchProject project) {
     	
     	List<Collaborator> collaborators = new ArrayList<>();
     	
@@ -65,7 +65,7 @@ public class ManagerAcademicService {
     	
     	projects.add(project);
     	alocateColaboratorInProject(project.getId(), collaborators);
-    	
+    	return findProject(project.getId());
     	
     }
     
@@ -126,7 +126,7 @@ public class ManagerAcademicService {
 	 * and save idPublication in Project (if exists) and in Collaborators
 	 * If exist project, so change status project to concluded 
 	 * */
-    public void addAcademicProduction(AcademicProduction production) {//TODO - constructor with basic data
+    public AcademicProduction addAcademicProduction(AcademicProduction production) {//TODO - constructor with basic data
 		
     
     	if(production.validProduction()) {
@@ -140,7 +140,7 @@ public class ManagerAcademicService {
     		addProductionInCollaborator(production, production.getAuthors());
     	}
     	
-    	
+    	return findProduction(production.getId());
 	}
     
     
@@ -202,6 +202,18 @@ public class ManagerAcademicService {
 		return null;
 	}
     
+    public AcademicProduction findProduction(String productionId) {
+		
+    	for(AcademicProduction production : productions) {
+    		
+    		if(production.getId().equals(productionId)) {
+    			return production;
+    		}
+    		
+    	}
+		return null;
+	}
+    
     public CollaboratorReport generateCollaboratorReport(String collaboratorId) {
     	
     	Collaborator collaborator = findCollaborator(collaboratorId);
@@ -235,11 +247,12 @@ public class ManagerAcademicService {
     	
     	
     	
-    	report = new CollaboratorReport(collaborator.getName(), 
-    			                         collaborator.getEmail(),
-    			                          projectsInProgress,
-    			                          projectsInElaboration,
-    			                          projectsConcluded);
+    	report = new CollaboratorReport(collaborator.getId(), 
+    			                        collaborator.getName(),
+    			                        collaborator.getEmail(),
+    			                        projectsInProgress,
+    			                        projectsInElaboration,
+    			                        projectsConcluded);
     	
     	
     	return report;
@@ -313,6 +326,9 @@ public class ManagerAcademicService {
 	public List<Collaborator> getCollaborators() {
 		return collaborators;
 	}
+	
+	
+	
 	
 	
 	

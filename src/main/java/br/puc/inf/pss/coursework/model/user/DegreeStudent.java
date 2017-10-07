@@ -13,14 +13,14 @@ public class DegreeStudent extends Student{
 	
 	
 	@JsonCreator
-	public DegreeStudent(@JsonProperty("ID") String ID, 
+	public DegreeStudent(@JsonProperty("id") String id, 
 			             @JsonProperty("name") String name,
 			             @JsonProperty("email") String email,
 			             @JsonProperty("startDate") Date startDate, 
 			             @JsonProperty("collaboratorType") CollaboratorType collaboratorType, 
 			             @JsonProperty("advisorId") String advisorId) {
 		
-		super(ID, name, email, startDate, collaboratorType, advisorId);
+		super(id, name, email, startDate, collaboratorType, advisorId);
 		
 	}
 

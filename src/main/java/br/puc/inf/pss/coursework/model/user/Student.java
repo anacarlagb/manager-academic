@@ -18,7 +18,7 @@ public class Student extends Collaborator implements Alocation {
     		       @JsonProperty("name") String name,
     		       @JsonProperty("email") String email,
     		       @JsonProperty("startDate") Date startDate, 
-    		       @JsonProperty("collaborator") CollaboratorType collaboratorType,
+    		       @JsonProperty("collaboratorType") CollaboratorType collaboratorType,
     		       @JsonProperty("advisorId") String advisorId) {
 		
     	super(iD, name, email, startDate, collaboratorType);

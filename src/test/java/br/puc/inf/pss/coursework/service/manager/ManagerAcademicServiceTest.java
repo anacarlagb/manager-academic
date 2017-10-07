@@ -247,7 +247,7 @@ public class ManagerAcademicServiceTest {
 		ResearchProject project = ManagerAcademicService.manager.generateResearchProjectReport(managerData.proj1.getId());
 		
 		assertEquals(9, project.getCollaborators().size());
-	    assertEquals("Engenharia de Software para Sistemas Multi-Agentes (ESMA)", project.title);
+	    assertEquals("Engenharia de Software para Sistemas Multi-Agentes (ESMA)", project.getTitle());
 		//assertEquals(3, project.getProductions().size());
 		
 		//assertEquals(2006, project.getProductions().get(0).getYear());

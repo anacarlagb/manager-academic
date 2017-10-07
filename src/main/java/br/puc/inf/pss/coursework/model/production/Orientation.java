@@ -16,14 +16,15 @@ public class Orientation extends AcademicProduction{
 	
 	
 	@JsonCreator
-	public Orientation(@JsonProperty("iD") String iD, 
+	public Orientation(@JsonProperty("id") String id, 
 			           @JsonProperty("title") String title,
 			           @JsonProperty("advisor") Collaborator advisor, 
 			           @JsonProperty("student") Collaborator student, 
 			           @JsonProperty("authors") List<Collaborator> authors,
-			           @JsonProperty("idResearchProject") String idResearchProject) {
+			           @JsonProperty("idResearchProject") String idResearchProject,
+			           @JsonProperty("year") int year) {
 
-		super(iD, title, authors, idResearchProject, null, AcademicProductionType.ORIENTATION);
+		super(id, title, authors, idResearchProject, null, year, AcademicProductionType.ORIENTATION);
 
 		this.advisor = advisor;
 		this.student = student;

@@ -25,11 +25,12 @@ public class ManagerAcademicController {
     @Path("/collaborator")
 	public Result addCollaborator(String userId, @Body String bodyCollaborator) {
 		
-		
-		
 		JsonNode collaboratorAsJson = json.parse(bodyCollaborator);
+		
 		Collaborator collaborator = json.fromJson(collaboratorAsJson, Collaborator.class);
-	
+		
+		System.out.println(collaborator.id);
+		
 		collaborator = ManagerAcademicService.manager.addColaborator(collaborator);
 		if(collaborator != null){
 			return Results.ok(json.toJson(collaborator));
@@ -41,33 +42,35 @@ public class ManagerAcademicController {
     @Path("/project")
 	public Result elaborateResearchProject(@Body String bodyProject) {
 		JsonNode projectAsJson = json.parse(bodyProject);
+		
 		ResearchProject project = json.fromJson(projectAsJson, ResearchProject.class);
 		
-		ManagerAcademicService.manager.elaborateResearchProject(project);
+		project = ManagerAcademicService.manager.elaborateResearchProject(project);
 		
-		return Results.ok(201);
+		return Results.ok(json.toJson(project));
 	}
 	
 	@POST
-    @Path("/project")
+    @Path("/production")
 	public Result addAcademicProduction(@Body String bodyProduction) {
 		JsonNode productionAsJson = json.parse(bodyProduction);
 		AcademicProduction production = json.fromJson(productionAsJson, AcademicProduction.class);
 		
-		ManagerAcademicService.manager.addAcademicProduction(production);
+		production = ManagerAcademicService.manager.addAcademicProduction(production);
 		
-		return Results.ok(201);
+		return Results.ok(json.toJson(production));
 	}
 	
 	@GET
 	@Path("/collaborator/:collaboratorId/report")
 	public Result generateCollaboratorReport(String userId, String collaboratorId) {
 		
-		System.out.println("dalkf");
+		
 		CollaboratorReport report = ManagerAcademicService.manager
 				                                          .generateCollaboratorReport(collaboratorId);
+		JsonNode reportJson = json.toJson(report);
 		
-		return Results.json(report);
+		return Results.ok(reportJson);
 	}
 	
 	@GET
@@ -76,8 +79,9 @@ public class ManagerAcademicController {
 		
 		ResearchProject projectReport = ManagerAcademicService.manager
 				                                       .generateResearchProjectReport(projectId);
+		JsonNode reportJson = json.toJson(projectReport);
 		
-		return Results.json(projectReport);
+		return Results.ok(reportJson);
 	}
 	
 	@GET
@@ -85,7 +89,10 @@ public class ManagerAcademicController {
 	public Result generateAcademicReport() {
 		
 	   AcademicReport report = ManagerAcademicService.manager.generateAcademicReport();
-	   return Results.json(report);
+	   
+	   JsonNode reportJson = json.toJson(report);
+	   
+	   return Results.ok(reportJson);
 	}
 	
 	

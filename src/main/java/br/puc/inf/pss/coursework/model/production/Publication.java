@@ -11,10 +11,10 @@ public class Publication extends AcademicProduction{
 
 	
 	protected String conferenceName;
-	protected int year;
+
 	
 	@JsonCreator
-	public Publication(@JsonProperty("iD") String iD, 
+	public Publication(@JsonProperty("id") String id, 
 			           @JsonProperty("title") String title,
 			           @JsonProperty("authors") List<Collaborator> authors,
 			           @JsonProperty("conferenceName") String conferenceName,
@@ -22,9 +22,8 @@ public class Publication extends AcademicProduction{
 			           @JsonProperty("researchProjectId") String researchProjectId,
 			           @JsonProperty("advisor") Collaborator advisor) {
 		
-		super(iD, title, authors, researchProjectId, advisor, AcademicProductionType.PUBLICATION);
+		super(id, title, authors, researchProjectId, advisor, year, AcademicProductionType.PUBLICATION);
 		this.conferenceName = conferenceName;
-		this.year = year;
 	}
 
 	@Override

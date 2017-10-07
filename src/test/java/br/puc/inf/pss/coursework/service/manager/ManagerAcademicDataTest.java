@@ -289,35 +289,35 @@ public class ManagerAcademicDataTest {
 		cols19List.addAll(Arrays.asList(cols19));
 		ori9 = new Orientation(null,
 				"Trablho de Conclusão de Curso: Usabilidade no Portal do Banco do Brasil",
-		        tea10, deg1, cols19List, null );
+		        tea10, deg1, cols19List, null, 0 );
 	
 		Collaborator[] cols20 = {tea10, mas4};
 		List<Collaborator> cols20List = new ArrayList<>();
 		cols20List.addAll(Arrays.asList(cols20));
 		ori10 = new Orientation(null, 
 				"Framework para o Cálculo de Reputação de Agentes",
-				tea10, mas4,cols20List, null );
+				tea10, mas4,cols20List, null, 0 );
 	
 		Collaborator[] cols21 = {tea12, mas5};
 		List<Collaborator> cols21List = new ArrayList<>();
 		cols21List.addAll(Arrays.asList(cols21));
 		ori11 = new Orientation(null,
 				"Arquitetura para Catálogos de Objetos baseado em Ontologias",
-				tea12, mas5,cols21List, null );
+				tea12, mas5,cols21List, null, 0 );
 	
 		Collaborator[] cols22 = {tea12, mas7};
 		List<Collaborator> cols22List = new ArrayList<>();
 		cols22List.addAll(Arrays.asList(cols22));
 		ori12 = new Orientation(null, 
 				 "Framework para Smart Cards", 
-				 tea12, mas7,cols22List, null);
+				 tea12, mas7,cols22List, null, 0);
 	
 		Collaborator[] cols23 = {tea10, phd9};
 		List<Collaborator> cols23List = new ArrayList<>();
 		cols23List.addAll(Arrays.asList(cols23));
 		ori13 = new Orientation(null,
 				"Linguagem de Modelagem para Sistemas baseados em Agentes", 
-				tea10, phd9,cols23List, null);
+				tea10, phd9,cols23List, null, 0);
 		
 		
 		Collaborator[] cols24 = {phd8, phd9};
@@ -325,7 +325,7 @@ public class ManagerAcademicDataTest {
 		cols24List.addAll(Arrays.asList(cols24));
 		ori14 = new Orientation(null,
 				"Linguagem de Modelagem para Sistemas baseados em Agentes", 
-				phd8, phd9,cols24List, null);
+				phd8, phd9,cols24List, null, 0);
 
 	}
       

@@ -5,7 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.report.ReportUtils;
@@ -13,12 +17,13 @@ import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 import br.puc.inf.pss.coursework.service.manager.Alocation;
 
-
-
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 public class ResearchProject{
 	
-	private String ID;
-	public final String title;
+	private String id;
+	private String title;
 	private Date startDate;
 	private Date endDate;
 	private String fundingInstitutionName;
@@ -30,8 +35,8 @@ public class ResearchProject{
 	private StatusResearchProject status;
 	
 	
-   @JsonCreator	
-	public ResearchProject(@JsonProperty("ID") String ID, 
+    @JsonCreator	
+	public ResearchProject(@JsonProperty("id") String id, 
 			               @JsonProperty("title") String title, 
 			               @JsonProperty("startDate") Date startDate,  
 			               @JsonProperty("endDate") Date endDate,
@@ -42,7 +47,9 @@ public class ResearchProject{
 			               @JsonProperty("collaborators") List<Collaborator> collaborators,
 			               @JsonProperty("status") StatusResearchProject status) {
 
-		this.ID = ID;
+    	this.id = (id == null || id.isEmpty()) ? 
+				  String.valueOf(System.currentTimeMillis()) : 
+			      id;
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -112,7 +119,7 @@ public class ResearchProject{
 		return productions;
 	}
 
-
+    @JsonIgnore
 	public boolean isElaboration() {
 		// TODO Auto-generated method stub
 		
@@ -141,7 +148,7 @@ public class ResearchProject{
 
 	public String getId() {
 		// TODO Auto-generated method stub
-		return ID;
+		return id;
 	}
 
 
@@ -149,7 +156,9 @@ public class ResearchProject{
 	public boolean hasProfessor() {
 		// TODO Auto-generated method stub
 		
+	
 		for (Collaborator collaborator : collaborators) {
+			
 			if(collaborator.isCollaboratorType(CollaboratorType.PROFESSOR)) {
 				return true;
 			}
@@ -169,6 +178,45 @@ public class ResearchProject{
 		// TODO Auto-generated method stub
 		ReportUtils.sortProductions(productions);
 	}
+
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+
+
+	public String getFundingInstitutionName() {
+		return fundingInstitutionName;
+	}
+
+
+
+	public Double getFundingValue() {
+		return fundingValue;
+	}
+
+
+
+	public String getGoal() {
+		return goal;
+	}
+
+
+
+	public String getDescription() {
+		return description;
+	}
+	
+	
+	
 	
 	
 	
