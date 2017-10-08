@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HTML5 Storage com JSON</title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-    <script src="funcoes.js"></script>
+
+<title>Gerenciador de Produção Acadêmica</title>
+
+	<head>
+			<script type="text/javascript" src="services/add-collaborator.js"></script>
+	</head>
 </head>
 <body>
-	<form id="frmCadastro">
-		<ul>
-			<li>
-				<label for="txtCodigo">CÃ³digo:</label>
-				<input type="text" id="txtCodigo"/>
-			</li>
-			<li>
-				<label for="txtNome">Nome:</label>
-				<input type="text" id="txtNome"/>
-			</li>
-			<li>
-				<label for="txtTelefone">Telefone:</label>
-				<input type="text" id="txtTelefone"/>
-			</li>
-			<li>
-				<label for="txtEmail">Email:</label>
-				<input type="text" id="txtEmail"/>
-			</li>
-			<li>
-				<input type="submit" value="Salvar" id="btnSalvar"/>
-			</li>
+ 
+                 
+       Digite seu email:  <input  id="insertedEmail" /> 
+       Digite sua senha:  <input  id="insertedPassword" />
+       
+	   <button onclick="login(insertedEmail.value,insertedPassword.value)">Submeter</button>
+	
+	
+	<!-- <div class="container">
+		<ul class="abas">
+          
+			<li class="aba" id="add-collaborator"><a
+				href="services/add-collaborator.js">Adicionar
+					Colaboradores</a> 
+			<li class="aba" id="elaborate-project"><a
+				href="http://anjosdeadoracao.blogspot.com.br/">Elaborar Projeto</a>
+
+			<li class="aba" id="add-production"><a
+				href="http://anjosdeadoracao.blogspot.com.br/3">Adicionar
+					Produção Acadêmica</a>
+						
+			<li class="aba" id="report-collaborator"><a
+				href="http://anjosdeadoracao.blogspot.com.br/3">Consultar por Colaborador</a>
+					
+			<li class="aba" id="report-project"><a
+				href="http://anjosdeadoracao.blogspot.com.br/3">Consultar por Projeto</a>
+					
+			<li class="aba" id="report-production"><a
+				href="http://anjosdeadoracao.blogspot.com.br/3">Gerar relatório Acadêmico</a>
 		</ul>
-	</form>
+	</div> -->
 
-	<table id="tblListar">
-
-	</table>
 </body>
 </html>
