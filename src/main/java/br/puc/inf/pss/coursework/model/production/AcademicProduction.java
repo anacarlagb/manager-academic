@@ -3,6 +3,7 @@ package br.puc.inf.pss.coursework.model.production;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -12,7 +13,7 @@ import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.coursework.model.user.DegreeStudent;
 import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 
-@JsonTypeInfo(use= JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="collaboratorType")
+@JsonTypeInfo(use= JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="academicProductionType")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = Publication.class, name = "PUBLICATION"),
     @JsonSubTypes.Type(value = Orientation.class, name = "ORIENTATION")
@@ -74,7 +75,8 @@ public abstract class AcademicProduction {
 	public String getId() {
 		return id;
 	}
-
+   
+	@JsonIgnore
 	public boolean isAcademicProductionType(AcademicProductionType productionType) {
 		// TODO Auto-generated method stub
 		return academicProductionType.equals(productionType);
@@ -84,7 +86,11 @@ public abstract class AcademicProduction {
 		return authors;
 	}
 
-	public abstract boolean validProduction(); 
+	public abstract boolean validProduction();
+
+	public String getTitle() {
+		return title;
+	} 
 	
 	
 	

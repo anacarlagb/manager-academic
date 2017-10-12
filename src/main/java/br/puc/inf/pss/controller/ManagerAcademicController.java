@@ -65,9 +65,9 @@ public class ManagerAcademicController {
 	@Path("/collaborator/:collaboratorId/report")
 	public Result generateCollaboratorReport(String userId, String collaboratorId) {
 		
-		
 		CollaboratorReport report = ManagerAcademicService.manager
 				                                          .generateCollaboratorReport(collaboratorId);
+		
 		JsonNode reportJson = json.toJson(report);
 		
 		return Results.ok(reportJson);
@@ -87,7 +87,6 @@ public class ManagerAcademicController {
 	@GET
 	@Path("/report")
 	public Result generateAcademicReport() {
-		
 	   AcademicReport report = ManagerAcademicService.manager.generateAcademicReport();
 	   
 	   JsonNode reportJson = json.toJson(report);

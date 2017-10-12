@@ -169,6 +169,7 @@ public class ManagerAcademicService {
 				project.addPublication(production);
 				productions = project.getProductions();
 			}
+			
 		}
 		
 		return productions;

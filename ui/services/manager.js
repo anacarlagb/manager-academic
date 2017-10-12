@@ -2,7 +2,7 @@ function reportacademic(){
 	
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/report", false); // false for synchronous request
-	xmlHttp.send(null);
+	xmlHttp.send();
 	var text = xmlHttp.responseText;
 	var academicReportJson = JSON.parse(text);
 	
@@ -31,39 +31,86 @@ function reportbycollaborator(){
 	
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/collaborator/" + "100" + "/report", false); // false for synchronous request
-	xmlHttp.send(null);
+	xmlHttp.send();
 	var text = xmlHttp.responseText;
+	
+	
+	
 	var collaboratorReportJson = JSON.parse(text);
 	
 	
 	var reportCollaborator = "<b>Relatório Por Colaborador</b> <ul>" +
     "<li> Nome: " + collaboratorReportJson.name + "</li> " +
-	"<li> Email: " + collaboratorReportJson.email + "</li> " +
-	"<li> Projetos de Pesquisa em Progresso: </li>" ;
-	var projetsInProgress = "";
+	"<li> Email: " + collaboratorReportJson.email + "</li> ";
+	
+	reportCollaborator+= "<li> Projetos de Pesquisa em Elaboração: " + collaboratorReportJson.projectsInElaboration.length + "</li> ";
+	var projetsInElaborationText = "";
+	var projectsInElaboration = collaboratorReportJson.projectsInElaboration;
+	
+	for(var i  in projectsInElaboration){
+		
+		startDate = formatDate(projectsInElaboration[i].startDate);
+		endDate = formatDate(projectsInElaboration[i].endDate);
+		projetsInElaborationText += "<br>Título:" + projectsInElaboration[i].title +
+							 "<br>Objetivo:" + projectsInElaboration[i].goal +
+						     "<br>Descrição:" + projectsInElaboration[i].description +
+							 "<br>Instituição Financiadora:" + projectsInElaboration[i].fundingInstitutionName +
+							 "<br>Valor Financiado:" + projectsInElaboration[i].fundingValue + 
+							 "<br> Data Inicial: " + startDate +
+							 "<br> Data Final: " + endDate;
+
+	}
+	reportCollaborator += projetsInElaborationText;
+	
+	reportCollaborator+= "<li> Projetos de Pesquisa em Progresso: " + collaboratorReportJson.projectsInProgress.length + "</li> ";
+	var projetsInProgressText = "";
 	var projectsInProgress = collaboratorReportJson.projectsInProgress;
 	
 	for(var i  in projectsInProgress){
 		
 		startDate = formatDate(projectsInProgress[i].startDate);
 		endDate = formatDate(projectsInProgress[i].endDate);
-		projetsInProgress += "<br>Título:" + projectsInProgress[i].title +
+		projetsInProgressText += "<br>Título:" + projectsInProgress[i].title +
 							 "<br>Objetivo:" + projectsInProgress[i].goal +
 						     "<br>Descrição:" + projectsInProgress[i].description +
 							 "<br>Instituição Financiadora:" + projectsInProgress[i].fundingInstitutionName +
 							 "<br>Valor Financiado:" + projectsInProgress[i].fundingValue + 
 							 "<br> Data Inicial: " + startDate +
 							 "<br> Data Final: " + endDate;
+
 	}
 	
-	reportCollaborator += projetsInProgress;
+	reportCollaborator += projetsInProgressText;
 	
 	
-//	reportCollaborator+= "<li> Projetos de Pesquisa em Elaboração: " + collaboratorReportJson.projectsInElaboration + "</li> ";
-//	
-//	reportCollaborator+= "<li> Projetos de Pesquisa Concluídos: " + collaboratorReportJson.projectsConcluded + "</li> "
-//	 
-	 document.getElementById("demo").innerHTML = reportCollaborator;
+	
+	reportCollaborator+= "<li> Projetos de Pesquisa Concluídos:" + collaboratorReportJson.projectsConcluded.length  + "</li> ";
+	var projetsConcludedText = "";
+	var projectsConcluded = collaboratorReportJson.projectsConcluded;
+	
+	for(var i  in projectsConcluded){
+		
+		startDate = formatDate(projectsConcluded[i].startDate);
+		endDate = formatDate(projectsConcluded[i].endDate);
+		projetsConcludedText += "<br>Título:" + projectsConcluded[i].title +
+							 "<br>Objetivo:" + projectsConcluded[i].goal +
+						     "<br>Descrição:" + projectsConcluded[i].description +
+							 "<br>Instituição Financiadora:" + projectsConcluded[i].fundingInstitutionName +
+							 "<br>Valor Financiado:" + projectsConcluded[i].fundingValue + 
+							 "<br> Data Inicial: " + startDate +
+							 "<br> Data Final: " + endDate;
+		
+		var productions = projectsConcluded[i].productions;
+        
+		for(var j in productions){		
+			projetsConcludedText += "<br>Título:" + productions[j].title +
+//								"<br>Orientador:" + productions[j].advisor.name +
+								"<br>Ano:" + productions[j].year +
+								"<br>Tipo de Produção:" + productions[j].academicProductionType;
+		}
+	}
+	reportCollaborator += projetsConcludedText;
+	document.getElementById("demo").innerHTML = reportCollaborator;
 }
 
 

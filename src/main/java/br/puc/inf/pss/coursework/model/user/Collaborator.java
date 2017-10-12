@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.production.Publication;
@@ -24,6 +26,9 @@ import br.puc.inf.pss.coursework.service.manager.Alocation;
         @JsonSubTypes.Type(value = Researcher.class, name = "RESEARCHER"),
         @JsonSubTypes.Type(value = Teacher.class, name = "PROFESSOR")
 })
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 public abstract class Collaborator implements Alocation{
      
 	
