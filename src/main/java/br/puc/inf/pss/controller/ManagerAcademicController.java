@@ -1,18 +1,30 @@
 package br.puc.inf.pss.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.jooby.Result;
 import org.jooby.Results;
 import org.jooby.mvc.Body;
 import org.jooby.mvc.GET;
 import org.jooby.mvc.POST;
 import org.jooby.mvc.Path;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.project.ResearchProject;
 import br.puc.inf.pss.coursework.model.report.AcademicReport;
 import br.puc.inf.pss.coursework.model.report.CollaboratorReport;
+import br.puc.inf.pss.coursework.model.report.CollaboratorsReport;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
+import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 import br.puc.inf.pss.coursework.service.manager.ManagerAcademicService;
 import br.puc.inf.pss.utils.JsonParser;
 
@@ -94,6 +106,27 @@ public class ManagerAcademicController {
 	   return Results.ok(reportJson);
 	}
 	
+	@GET
+	@Path("/collaborators")
+    public Result getCollaborators(String userId, Optional<String> type) throws JsonGenerationException, JsonMappingException, IOException {
+		
+		
+		List<Collaborator> collaborators = new ArrayList<>();
+		
+		if(type.isPresent()) {
+			CollaboratorType collaboratorType = CollaboratorType.valueOf(type.get().toUpperCase()); 
+		    collaborators = ManagerAcademicService.manager.getCollaboratorsByType(collaboratorType);
+		}
+		else {
+		    collaborators = ManagerAcademicService.manager.getCollaborators();
+		}
+		
+		CollaboratorsReport collaboratorsReport = new CollaboratorsReport("", collaborators);
+
+		JsonNode collaboratorsJson = json.toJson(collaboratorsReport);
+		
+		return Results.ok(collaboratorsJson);
+	}	
 	
 }
 

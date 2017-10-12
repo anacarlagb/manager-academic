@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,9 +27,7 @@ import br.puc.inf.pss.coursework.service.manager.Alocation;
         @JsonSubTypes.Type(value = Researcher.class, name = "RESEARCHER"),
         @JsonSubTypes.Type(value = Teacher.class, name = "PROFESSOR")
 })
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id")
+
 public abstract class Collaborator implements Alocation{
      
 	
@@ -37,7 +36,9 @@ public abstract class Collaborator implements Alocation{
 	public final String email;
 	public final Date startDate;
 	private CollaboratorType collaboratorType;
+	@JsonBackReference
 	protected List<ResearchProject> projects;
+	@JsonBackReference
 	protected List<AcademicProduction> productions;
 	
 	@JsonCreator

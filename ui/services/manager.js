@@ -1,3 +1,9 @@
+function formatDate(inputStr) {
+    var timestamp = parseInt(inputStr, 10);
+    var date = new Date(timestamp);
+    return date.getDate() + '/' + (date.getMonth() + 1) + '/' +  date.getFullYear();
+}
+
 function reportacademic(){
 	
 	var xmlHttp = new XMLHttpRequest();
@@ -20,11 +26,7 @@ function reportacademic(){
  
 }
 
-function formatDate(inputStr) {
-    var timestamp = parseInt(inputStr, 10);
-    var date = new Date(timestamp);
-    return date.getDate() + '/' + (date.getMonth() + 1) + '/' +  date.getFullYear();
-}
+
 
 function reportbycollaborator(){
 	
@@ -33,8 +35,6 @@ function reportbycollaborator(){
 	xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/collaborator/" + "100" + "/report", false); // false for synchronous request
 	xmlHttp.send();
 	var text = xmlHttp.responseText;
-	
-	
 	
 	var collaboratorReportJson = JSON.parse(text);
 	
@@ -83,7 +83,6 @@ function reportbycollaborator(){
 	reportCollaborator += projetsInProgressText;
 	
 	
-	
 	reportCollaborator+= "<li> Projetos de Pesquisa Concluídos:" + collaboratorReportJson.projectsConcluded.length  + "</li> ";
 	var projetsConcludedText = "";
 	var projectsConcluded = collaboratorReportJson.projectsConcluded;
@@ -114,12 +113,56 @@ function reportbycollaborator(){
 }
 
 
-function reportbyproduction(){
+function reportbyproject(){
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/project/" + "30" + "/report", false); // false for synchronous request
+	xmlHttp.send();
+	var text = xmlHttp.responseText;
 	
+	var projectReportJson = JSON.parse(text);
+	
+    var startDate = formatDate(projectReportJson.startDate);
+	var endDate = formatDate(projectReportJson.endDate);
+	
+	var projectText = "<ul><b>Relatório Por Projeto</b> <ul>";
+	projectText += "<br><b>Título:" + projectReportJson.title + "</b>" +
+							 "<br>Objetivo:" + projectReportJson.goal +
+						     "<br>Descrição:" + projectReportJson.description +
+							 "<br>Instituição Financiadora:" + projectReportJson.fundingInstitutionName +
+							 "<br>Valor Financiado:" + projectReportJson.fundingValue + 
+							 "<br> Data Inicial: " + startDate +
+							 "<br> Data Final: " + endDate;
+	
+        
+	for(var j in projectReportJson.productions){
+		projectText += "<li><b>Publicação :" + projectReportJson.productions[j].title + "</b></li>";
+		projectText += "Ano:" + projectReportJson.productions[j].year +
+					   "<br>Tipo de Produção:" + projectReportJson.productions[j].academicProductionType;
+//								"<br>Orientador:" + productions[j].advisor.name;
+	}
+	
+	document.getElementById("demo").innerHTML =  projectText;
 }
 
 
 function addcollaborator(){
+	
+	var collaboratorTextHtml = "<br>Nome:  <input  id=\"insertedName\" />" ;
+	collaboratorTextHtml += "<br>Email:  <input  id=\"insertedEmail\" />" ;
+	collaboratorTextHtml += "<br>Data Inicial:  <input  id=\"insertedStartDate\" />" ;
+	collaboratorTextHtml += "<br>Selecione o tipo do colaborador:"
+	collaboratorTextHtml += "<br> <input type=\"radio\" name=\"degree\" onclick=\"generateDegreeStudent(insertedEmail.value, insertedEmail.value, insertedStartDate.value)\"> Estudante de Graduação<br>" +
+							"<br> <input type=\"radio\" name=\"master\" onclick=\"generateMasterStudent(insertedEmail.value, insertedEmail.value, insertedStartDate.value)\"> Estudante de Mestrado<br>" +
+							"<br> <input type=\"radio\" name=\"phd\"    onclick=\"generatePHDStudent(insertedEmail.value, insertedEmail.value, insertedStartDate.value)\"> Estudante de Doutorado<br>" +
+							"<br> <input type=\"radio\" name=\"professor\" onclick=\"generateProfessor(insertedEmail.value, insertedEmail.value, insertedStartDate.value)\"> Professor<br>" +
+							"<br> <input type=\"radio\" name=\"vehicle\" onclick=\"generateResearcher(insertedEmail.value, insertedEmail.value, insertedStartDate.value)\"> Pesquisador<br>";
+	
+//	collaboratorTextHtml += "<button onclick=\"generateCollaborator(insertedEmail.value)\">Enviar</button>";
+//	collaboratorTextHtml += "<button onclick=\"generateCollaborator(insertedEmail.value)\">Enviar</button>";
+	document.getElementById("demo").innerHTML =  collaboratorTextHtml;
+	
+	
+	
 	
 }
 
@@ -132,6 +175,64 @@ function addproject(){
 function addproduction(){
 	
 }
+
+function getCollaboratorsByType(type){
+	
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/collaborators?type=" + type, false); // false for synchronous request
+	xmlHttp.send();
+	var text = xmlHttp.responseText;
+	
+	var collaborators = JSON.parse(text);
+	
+	return collaborators;
+}
+
+function generateDegreeStudent(email, name, startDate){	
+	var degreeTextHtml = "<br>Selecione o orientador:" ;
+	var professorList = getCollaboratorsByType("PROFESSOR");
+	
+	degreeTextHtml += "<select id=\"advisors\">";
+
+	for(var j in professorList.collaborators){
+		degreeTextHtml +="<option value=" + professorList.collaborators[j].id + ">"+  professorList.collaborators[j].name + "</option>";
+		
+	}
+	
+	degreeTextHtml += "</select>";
+    document.getElementById("demo").innerHTML =  degreeTextHtml;
+	
+	var selectedAdvisorId = document.getElementById("advisors").value;
+//	var advisor;
+//	for(var j in professorList){
+//		if(professorList[j].id == selectedAdvisorId){
+//			advisor = professorList[j];
+//		}
+//	}
+//
+//	var degreeAsJson = { name: name, email: email};
+//	alert(JSON.stringify(degreeAsJson));
+
+}
+
+function generateMasterStudent(email, name, startDate){
+	
+}
+
+function generatePHDStudent(email, name, startDate){
+	
+}
+function generateProfessor(email, name, startDate){
+	
+}
+
+function generateResearcher(email, name, startDate){
+	
+}
+
+
+
+
 
 
 

@@ -13,6 +13,7 @@ import br.puc.inf.pss.coursework.model.report.AcademicReport;
 import br.puc.inf.pss.coursework.model.report.CollaboratorReport;
 import br.puc.inf.pss.coursework.model.report.ReportUtils;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
+import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 
 
 public class ManagerAcademicService {
@@ -326,6 +327,21 @@ public class ManagerAcademicService {
 
 	public List<Collaborator> getCollaborators() {
 		return collaborators;
+	}
+
+	public List<Collaborator> getCollaboratorsByType(CollaboratorType collaboratorType) {
+		// TODO Auto-generated method stub
+		
+	   List<Collaborator> collaboratorsByType = new ArrayList<>();
+	  
+	   for(Collaborator collaborator : collaborators) {
+		   if(collaborator.isCollaboratorType(collaboratorType)) {
+			   collaboratorsByType.add(collaborator);
+			   
+		   }
+	   }
+		
+		return collaboratorsByType;
 	}
 	
 	
