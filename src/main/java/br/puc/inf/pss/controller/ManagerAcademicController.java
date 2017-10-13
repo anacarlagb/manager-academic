@@ -36,12 +36,11 @@ public class ManagerAcademicController {
 	@POST
     @Path("/collaborator")
 	public Result addCollaborator(String userId, @Body String bodyCollaborator) {
-		System.out.println(bodyCollaborator);
+		
 		JsonNode collaboratorAsJson = json.parse(bodyCollaborator);
 		
 		Collaborator collaborator = json.fromJson(collaboratorAsJson, Collaborator.class);
 		
-		System.out.println(collaborator.id);
 		
 		collaborator = ManagerAcademicService.manager.addColaborator(collaborator);
 		if(collaborator != null){
@@ -77,12 +76,18 @@ public class ManagerAcademicController {
 	@Path("/collaborator/:collaboratorId/report")
 	public Result generateCollaboratorReport(String userId, String collaboratorId) {
 		
-		CollaboratorReport report = ManagerAcademicService.manager
-				                                          .generateCollaboratorReport(collaboratorId);
-		
-		JsonNode reportJson = json.toJson(report);
-		
-		return Results.ok(reportJson);
+		if (collaboratorId != null && !collaboratorId.isEmpty()) {
+			collaboratorId = collaboratorId.replaceAll("\"", "");
+			
+			
+			CollaboratorReport report = ManagerAcademicService.manager.generateCollaboratorReport(collaboratorId);
+
+			if (report != null) {
+				JsonNode reportJson = json.toJson(report);
+				return Results.ok(reportJson);
+			}
+		}
+		return Results.with("Esse colaborador não existe");
 	}
 	
 	@GET
@@ -113,12 +118,20 @@ public class ManagerAcademicController {
 		
 		List<Collaborator> collaborators = new ArrayList<>();
 		
-		if(type.isPresent()) {
-			CollaboratorType collaboratorType = CollaboratorType.valueOf(type.get().toUpperCase()); 
-		    collaborators = ManagerAcademicService.manager.getCollaboratorsByType(collaboratorType);
+		if(type.isPresent() && !type.get().isEmpty()) {
+			
+			try {
+				CollaboratorType collaboratorType = CollaboratorType.valueOf(type.get().toUpperCase());
+				collaborators = ManagerAcademicService.manager.getCollaboratorsByType(collaboratorType);
+			
+			} catch (IllegalArgumentException e) {
+				Results.with("Esse tipo de colaborador não é válido.");
+			}
 		}
 		else {
+			
 		    collaborators = ManagerAcademicService.manager.getCollaborators();
+		    System.out.println(collaborators.size());
 		}
 		
 		CollaboratorsReport collaboratorsReport = new CollaboratorsReport("", collaborators);

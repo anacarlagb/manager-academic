@@ -1,12 +1,10 @@
 function saveStudent() {
     
-	var advisorIndex = document.getElementById("advisors").selectedIndex;
-    var advisors = document.getElementById("advisors").options;
+	var advisorIndex = document.getElementById("collaborators").selectedIndex;
+    var advisors = document.getElementById("collaborators").options;
     var advisorId = advisors[advisorIndex].value;
     
-	var advisor;
-	
-	
+	var advisor = null;
 	for(var j in collaboratorsReportByType.collaborators){
 		if(collaboratorsReportByType.collaborators[j].id ==  advisorId){
 			advisor = collaboratorsReportByType.collaborators[j];
@@ -16,7 +14,6 @@ function saveStudent() {
 	collaborator.advisor = advisor;
 	collaborator.productions = [];
 	collaborator.projects = [];
-	collaborator.startDate = null;
 	var collaboratorJson = JSON.stringify(collaborator);
 	alert(collaboratorJson);
 	
@@ -28,34 +25,31 @@ function saveStudent() {
 	
 }
 
-function generateDegreeStudent(email, name, startDate){	
-	collaborator.id = "";
+
+
+function generateDegreeStudent(id, email, name, startDate){	
+	collaborator.id = id;
 	collaborator.email = email;
 	collaborator.name = name;
-//	collaborator.startDate = startDate;
+	collaborator.startDate = new Date(startDate);
 	collaborator.type = "DEGREE_STUDENT";
 	collaborator.collaboratorType = "DEGREE_STUDENT"; 
 	
-	var degreeTextHtml = "<br>Selecione o orientador:" ;
-	collaboratorsReportByType = getCollaboratorsByType("PROFESSOR");
+	var advisorsText = getCollaborators("PROFESSOR");
 	
-	degreeTextHtml += "<select id=\"advisors\">";
-
-	for(var j in collaboratorsReportByType.collaborators){
-		degreeTextHtml +="<option value=" + collaboratorsReportByType.collaborators[j].id + ">"+  collaboratorsReportByType.collaborators[j].name + "</option>";
-		
-	}
+	var degreeTextHtml = "<br>Selecione o orientador:"  
+		+ advisorsText
+		+ "<button onclick=\"saveStudent()\">Salvar</button>";
 	
-	degreeTextHtml += "</select>";
-	degreeTextHtml += "<button onclick=\"saveStudent()\">Salvar</button>";
+	
     document.getElementById("demo").innerHTML =  degreeTextHtml;
 	
 }
 
-function generateMasterStudent(email, name, startDate){
+function generateMasterStudent(id, email, name, startDate){
 	
 }
 
-function generatePHDStudent(email, name, startDate){
+function generatePHDStudent(id, email, name, startDate){
 	
 }

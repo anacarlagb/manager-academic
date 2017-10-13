@@ -219,42 +219,47 @@ public class ManagerAcademicService {
     public CollaboratorReport generateCollaboratorReport(String collaboratorId) {
     	
     	Collaborator collaborator = findCollaborator(collaboratorId);
-    	CollaboratorReport report;
+    	CollaboratorReport report = null;
     	
-    	List<ResearchProject> projectsInElaboration = new ArrayList<>();
-    	List<ResearchProject> projectsInProgress = new ArrayList<>();
-    	List<ResearchProject> projectsConcluded = new ArrayList<>();
-    	
-    	for(ResearchProject project : collaborator.getProjects()) {
-    		
-    		project.sortProductions();
-    		if(project.getStatus().equals(StatusResearchProject.IN_PROGRESS)) {
-    			
-    			projectsInProgress.add(project);
-    		}
-    		else
-    			if(project.getStatus().equals(StatusResearchProject.IN_ELABORATION)) {
-    				projectsInElaboration.add(project);
-    			}
-    		else
-    			if(project.getStatus().equals(StatusResearchProject.CONCLUDED)) {
-    				projectsConcluded.add(project);
-    			}
-    			
+    	if(collaborator != null) {
+	    	List<ResearchProject> projectsInElaboration = new ArrayList<>();
+	    	List<ResearchProject> projectsInProgress = new ArrayList<>();
+	    	List<ResearchProject> projectsConcluded = new ArrayList<>();
+	    	
+	    	for(ResearchProject project : collaborator.getProjects()) {
+	    		
+	    		project.sortProductions();
+	    		if(project.getStatus().equals(StatusResearchProject.IN_PROGRESS)) {
+	    			
+	    			projectsInProgress.add(project);
+	    		}
+	    		else
+	    			if(project.getStatus().equals(StatusResearchProject.IN_ELABORATION)) {
+	    				projectsInElaboration.add(project);
+	    			}
+	    		else
+	    			if(project.getStatus().equals(StatusResearchProject.CONCLUDED)) {
+	    				projectsConcluded.add(project);
+	    			}
+	    			
+	    	}
+	    	
+	    	projectsInElaboration = ReportUtils.sortProjects(projectsInElaboration);
+	    	projectsInProgress = ReportUtils.sortProjects(projectsInProgress);
+	    	projectsConcluded = ReportUtils.sortProjects(projectsConcluded);
+	    	
+	    	
+	    	
+	    	report = new CollaboratorReport(collaborator.getId(), 
+	    			                        collaborator.getName(),
+	    			                        collaborator.getEmail(),
+	    			                        projectsInProgress,
+	    			                        projectsInElaboration,
+	    			                        projectsConcluded);
+	    	
+	    	
     	}
-    	
-    	projectsInElaboration = ReportUtils.sortProjects(projectsInElaboration);
-    	projectsInProgress = ReportUtils.sortProjects(projectsInProgress);
-    	projectsConcluded = ReportUtils.sortProjects(projectsConcluded);
-    	
-    	
-    	
-    	report = new CollaboratorReport(collaborator.getId(), 
-    			                        collaborator.getName(),
-    			                        collaborator.getEmail(),
-    			                        projectsInProgress,
-    			                        projectsInElaboration,
-    			                        projectsConcluded);
+   
     	
     	
     	return report;
