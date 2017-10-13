@@ -14,7 +14,7 @@ import br.puc.inf.pss.coursework.model.user.Collaborator;
 public class CollaboratorsReport {
    
 	public final String id;
-	@JsonManagedReference 
+	
 	public final List<Collaborator> collaborators;
 	
 	@JsonCreator

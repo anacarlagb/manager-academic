@@ -36,7 +36,7 @@ public class ManagerAcademicController {
 	@POST
     @Path("/collaborator")
 	public Result addCollaborator(String userId, @Body String bodyCollaborator) {
-		
+		System.out.println(bodyCollaborator);
 		JsonNode collaboratorAsJson = json.parse(bodyCollaborator);
 		
 		Collaborator collaborator = json.fromJson(collaboratorAsJson, Collaborator.class);

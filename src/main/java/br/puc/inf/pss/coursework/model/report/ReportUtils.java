@@ -8,6 +8,7 @@ import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.project.ResearchProject;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 
+
 public class ReportUtils {
 
 	

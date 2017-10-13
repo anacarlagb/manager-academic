@@ -5,10 +5,9 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 public class MasterStudent extends Student{
 
-	
-	String courseRegimeType;
 	
 	@JsonCreator
 	public MasterStudent(@JsonProperty("id") String id, 
@@ -16,10 +15,10 @@ public class MasterStudent extends Student{
 			             @JsonProperty("email") String email,
 			             @JsonProperty("startDate") Date startDate,
 			             @JsonProperty("collaboratorType") CollaboratorType collaboratorType, 
-			             @JsonProperty("advisorId") String advisorId, 
-			             @JsonProperty("courseRegimeType") String courseRegimeType) {
-		super(id, name, email, startDate, collaboratorType, advisorId);
-		this.courseRegimeType = courseRegimeType;
+			             @JsonProperty("advisor") Collaborator advisor, 
+			             @JsonProperty("periodType") PeriodType periodType) {
+		super(id, name, email, startDate, collaboratorType, advisor, periodType);
+		this.periodType = periodType;
 	}
 
 	

@@ -3,10 +3,12 @@ package br.puc.inf.pss.coursework.model.production;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.puc.inf.pss.coursework.model.user.Admin;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
@@ -18,7 +20,10 @@ import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
     @JsonSubTypes.Type(value = Publication.class, name = "PUBLICATION"),
     @JsonSubTypes.Type(value = Orientation.class, name = "ORIENTATION")
     
-})   
+}) 
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 public abstract class AcademicProduction {
 
 	private String id;

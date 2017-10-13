@@ -3,7 +3,10 @@ package br.puc.inf.pss.coursework.model.user;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.puc.inf.pss.coursework.service.manager.Alocation;
 
@@ -11,7 +14,14 @@ public class Student extends Collaborator implements Alocation {
 
 	
 	
-	public String advisorId;
+	protected Collaborator advisor;
+	
+	@JsonIgnore
+	protected PeriodType periodType;
+	
+	public enum PeriodType{
+		INTEGRAL,PARTIAL;
+	}
 	
 	@JsonCreator
     public Student(@JsonProperty("iD") String iD,
@@ -19,11 +29,13 @@ public class Student extends Collaborator implements Alocation {
     		       @JsonProperty("email") String email,
     		       @JsonProperty("startDate") Date startDate, 
     		       @JsonProperty("collaboratorType") CollaboratorType collaboratorType,
-    		       @JsonProperty("advisorId") String advisorId) {
+    		       @JsonProperty("advisor") Collaborator advisor,
+    		       @JsonProperty("periodType") PeriodType periodType) {
 		
     	super(iD, name, email, startDate, collaboratorType);
 		
-    	this.advisorId = advisorId;
+    	this.advisor = advisor;
+    	this.periodType = periodType;
 		
 	}
 
@@ -36,5 +48,6 @@ public class Student extends Collaborator implements Alocation {
 		
 		return true;
 	}
-     
+
+	
 }

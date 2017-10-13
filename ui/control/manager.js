@@ -188,40 +188,9 @@ function getCollaboratorsByType(type){
 	return collaborators;
 }
 
-function generateDegreeStudent(email, name, startDate){	
-	var degreeTextHtml = "<br>Selecione o orientador:" ;
-	var professorList = getCollaboratorsByType("PROFESSOR");
-	
-	degreeTextHtml += "<select id=\"advisors\">";
+var collaborator = {};
+var collaboratorsReportByType = [];
 
-	for(var j in professorList.collaborators){
-		degreeTextHtml +="<option value=" + professorList.collaborators[j].id + ">"+  professorList.collaborators[j].name + "</option>";
-		
-	}
-	
-	degreeTextHtml += "</select>";
-    document.getElementById("demo").innerHTML =  degreeTextHtml;
-	
-	var selectedAdvisorId = document.getElementById("advisors").value;
-//	var advisor;
-//	for(var j in professorList){
-//		if(professorList[j].id == selectedAdvisorId){
-//			advisor = professorList[j];
-//		}
-//	}
-//
-//	var degreeAsJson = { name: name, email: email};
-//	alert(JSON.stringify(degreeAsJson));
-
-}
-
-function generateMasterStudent(email, name, startDate){
-	
-}
-
-function generatePHDStudent(email, name, startDate){
-	
-}
 function generateProfessor(email, name, startDate){
 	
 }

@@ -18,6 +18,7 @@ import br.puc.inf.pss.coursework.model.project.ResearchProject;
 import br.puc.inf.pss.coursework.model.project.StatusResearchProject;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
+import br.puc.inf.pss.coursework.model.user.Student.PeriodType;
 import br.puc.inf.pss.coursework.model.user.DegreeStudent;
 import br.puc.inf.pss.coursework.model.user.MasterStudent;
 import br.puc.inf.pss.coursework.model.user.PHDStudent;
@@ -124,19 +125,19 @@ public class ManagerAcademicDataTest {
 	    }
 		//Degree Students
 		 
-		deg1 = new DegreeStudent("1001", "Maria", "maria@email.br", dataDeg1,CollaboratorType.DEGREE_STUDENT,"100");
-		deg2 = new DegreeStudent("1002", "João", "joao@email.br", dataDeg2, CollaboratorType.DEGREE_STUDENT, "101");
-		deg3 = new DegreeStudent("1003", "Mário", "mario@email.br", dataDeg3, CollaboratorType.DEGREE_STUDENT,"101");
+		deg1 = new DegreeStudent("1001", "Maria", "maria@email.br", dataDeg1,CollaboratorType.DEGREE_STUDENT,tea10);
+		deg2 = new DegreeStudent("1002", "João", "joao@email.br", dataDeg2, CollaboratorType.DEGREE_STUDENT, tea11);
+		deg3 = new DegreeStudent("1003", "Mário", "mario@email.br", dataDeg3, CollaboratorType.DEGREE_STUDENT,tea11);
 
 		//Master Students
-		mas4 = new MasterStudent("1004", "Soraia", "soraia@email.br", dataMas4,CollaboratorType.MASTER_STUDENT, "100", "Parcial");
-		mas5 = new MasterStudent("1005", "Rafael", "rafael@email.br", dataMas5,CollaboratorType.MASTER_STUDENT, "102", "Parcial");
-        mas6 = new MasterStudent("1006", "Marta", "marta@email.br", dataMas6,CollaboratorType.MASTER_STUDENT, "102", "Integral");
-        mas7 = new MasterStudent("1007", "Daniel", "daniel@email.br", dataMas7,CollaboratorType.MASTER_STUDENT, "102", "Integral");
+		mas4 = new MasterStudent("1004", "Soraia", "soraia@email.br", dataMas4,CollaboratorType.MASTER_STUDENT, tea10, PeriodType.PARTIAL);
+		mas5 = new MasterStudent("1005", "Rafael", "rafael@email.br", dataMas5,CollaboratorType.MASTER_STUDENT, tea12, PeriodType.PARTIAL);
+        mas6 = new MasterStudent("1006", "Marta", "marta@email.br", dataMas6,CollaboratorType.MASTER_STUDENT, tea12, PeriodType.INTEGRAL);
+        mas7 = new MasterStudent("1007", "Daniel", "daniel@email.br", dataMas7,CollaboratorType.MASTER_STUDENT, tea12, PeriodType.INTEGRAL);
 
         //PHD Students
-		phd8 = new PHDStudent("1008", "Michael", "michael@email.br", dataPHD8, CollaboratorType.PHD_STUDENT,"100", "Integral");
-		phd9 = new PHDStudent("1009", "Bia", "bia@email.br",dataPHD9,CollaboratorType.PHD_STUDENT, "100", "Integral");
+		phd8 = new PHDStudent("1008", "Michael", "michael@email.br", dataPHD8, CollaboratorType.PHD_STUDENT,tea10, PeriodType.INTEGRAL);
+		phd9 = new PHDStudent("1009", "Bia", "bia@email.br",dataPHD9,CollaboratorType.PHD_STUDENT, tea10, PeriodType.INTEGRAL);
 
 		tea10 = new Teacher("100", "Prof. Carlos", "carlos@email.br", null, CollaboratorType.PROFESSOR);	
 		tea11 = new Teacher("101", "Prof. Arnaldo", "arnaldo@email.br", null, CollaboratorType.PROFESSOR);

@@ -8,13 +8,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
-import br.puc.inf.pss.coursework.model.production.Publication;
 import br.puc.inf.pss.coursework.model.project.ResearchProject;
 import br.puc.inf.pss.coursework.service.manager.Alocation;
 
@@ -27,7 +27,6 @@ import br.puc.inf.pss.coursework.service.manager.Alocation;
         @JsonSubTypes.Type(value = Researcher.class, name = "RESEARCHER"),
         @JsonSubTypes.Type(value = Teacher.class, name = "PROFESSOR")
 })
-
 public abstract class Collaborator implements Alocation{
      
 	
@@ -36,9 +35,7 @@ public abstract class Collaborator implements Alocation{
 	public final String email;
 	public final Date startDate;
 	private CollaboratorType collaboratorType;
-	@JsonBackReference
 	protected List<ResearchProject> projects;
-	@JsonBackReference
 	protected List<AcademicProduction> productions;
 	
 	@JsonCreator

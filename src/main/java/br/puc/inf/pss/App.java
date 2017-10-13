@@ -7,6 +7,7 @@ import br.puc.inf.pss.controller.ManagerAcademicController;
 import br.puc.inf.pss.coursework.repository.AcademicDataBase;
 import br.puc.inf.pss.coursework.service.manager.ManagerAcademicService;
 
+
 /**
  * @author jooby generator
  */
@@ -35,7 +36,8 @@ public class App extends Jooby {
 	   ManagerAcademicService.manager.elaborateResearchProject(database.proj2);
 	   ManagerAcademicService.manager.addAcademicProduction(database.publ1);
 	 
-		
+	  
+	   
 	   use(ManagerAcademicController.class);
 	   use("*", new CorsHandler());
 	
