@@ -48,7 +48,6 @@ function getCollaboratorsByType(type){
 	var text = xmlHttp.responseText;
 	
 	var collaborators = JSON.parse(text);
-	alert(collaborators.collaborators.length);
 	return collaborators;
 }
 

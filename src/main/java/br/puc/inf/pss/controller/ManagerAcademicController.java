@@ -11,6 +11,7 @@ import org.jooby.mvc.Body;
 import org.jooby.mvc.GET;
 import org.jooby.mvc.POST;
 import org.jooby.mvc.Path;
+import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,6 +27,7 @@ import br.puc.inf.pss.coursework.model.report.CollaboratorsReport;
 import br.puc.inf.pss.coursework.model.user.Collaborator;
 import br.puc.inf.pss.coursework.model.user.Collaborator.CollaboratorType;
 import br.puc.inf.pss.coursework.service.manager.ManagerAcademicService;
+import br.puc.inf.pss.utils.JsonBuilder;
 import br.puc.inf.pss.utils.JsonParser;
 
 @Path("app/user/:userId")
@@ -79,7 +81,6 @@ public class ManagerAcademicController {
 		if (collaboratorId != null && !collaboratorId.isEmpty()) {
 			collaboratorId = collaboratorId.replaceAll("\"", "");
 			
-			
 			CollaboratorReport report = ManagerAcademicService.manager.generateCollaboratorReport(collaboratorId);
 
 			if (report != null) {
@@ -94,11 +95,17 @@ public class ManagerAcademicController {
 	@Path("/project/:projectId/report")
 	public Result generateResearchProjectReport(String userId, String projectId) {
 		
-		ResearchProject projectReport = ManagerAcademicService.manager
-				                                       .generateResearchProjectReport(projectId);
-		JsonNode reportJson = json.toJson(projectReport);
-		
-		return Results.ok(reportJson);
+		if (projectId != null && !projectId.isEmpty()) {
+			projectId = projectId.replaceAll("\"", "");
+			
+			ResearchProject projectReport = ManagerAcademicService.manager.generateResearchProjectReport(projectId);
+			if(projectReport != null) {
+				JsonNode reportJson = json.toJson(projectReport);
+				return Results.ok(reportJson);
+			}
+			
+		}
+		return Results.with("Esse projeto não existe");
 	}
 	
 	@GET
@@ -139,7 +146,41 @@ public class ManagerAcademicController {
 		JsonNode collaboratorsJson = json.toJson(collaboratorsReport);
 		
 		return Results.ok(collaboratorsJson);
-	}	
+	}
+	
+	@GET
+	@Path("/projects")
+	public Result getProjects(String userId) {
+		List<ResearchProject> projects = ManagerAcademicService.manager.getProjects();
+		
+		if(projects != null) {
+			JSONObject projectsJson = JsonBuilder.buildProjects(projects);
+		    return Results.ok(projectsJson);
+		}
+		else {
+			return Results.with("Não temos projetos cadastrados");
+		}
+	}
+	
+	
+	@GET
+	@Path("/project/:projectId/productions")
+	public Result getProductionsByProject(String userId, String projectId) {
+		if (projectId != null && !projectId.isEmpty()) {
+			projectId = projectId.replaceAll("\"", "");
+			
+			ResearchProject projectReport = ManagerAcademicService.manager.generateResearchProjectReport(projectId);
+			JSONObject productionsJson = JsonBuilder.buildProductions(projectReport.getProductions());
+			
+			if(projectReport != null) {
+				
+				return Results.ok(productionsJson);
+			}
+			
+		}
+		return Results.with("Esse projeto não existe");
+	}
+	
 	
 }
 

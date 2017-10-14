@@ -95,7 +95,13 @@ public abstract class AcademicProduction {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public AcademicProductionType getAcademicProductionType() {
+		return academicProductionType;
 	} 
+	
+	
 	
 	
 	

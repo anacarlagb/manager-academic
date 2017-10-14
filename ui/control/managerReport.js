@@ -2,19 +2,27 @@ function reportcollaborator() {
 	var collaboratorsText = getCollaborators("");
 
 	var collaboratorsHTML = "<br>Selecione o colaborador:" + collaboratorsText
-			+ "<button onclick=\"reportbycollaborator()\">Salvar</button>";
+			+ "<button onclick=\"reportbycollaborator()\">Gerar Relatório</button>";
 
 	document.getElementById("demo").innerHTML = collaboratorsHTML;
+}
+
+function reportproject(){
+	
+	var projectsText = getProjects();
+
+	var projectsHTML = "<br>Selecione o projeto:" + projectsText
+	+ "<button onclick=\"reportbyproject()\">Gerar Relatório</button>";
+
+    document.getElementById("demo").innerHTML = projectsHTML;
+	
 }
 
 function reportacademic() {
 
 	var reportAcademic = "<b>Relatório Acadêmico</b> <ul>";
 	var xmlHttp = new XMLHttpRequest();
-	xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/report", false); // false
-																					// for
-																					// synchronous
-																					// request
+	xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/report", false); 
 	xmlHttp.send();
 	var text = xmlHttp.responseText;
 	var academicReportJson = JSON.parse(text);
@@ -52,13 +60,13 @@ function reportbycollaborator() {
 	if (collaboratorId != null && collaboratorId != "") {
 
 		collaboratorId =  "\"" + collaboratorId +"\"";
-		alert(collaboratorId);
+		
 		var xmlHttp = new XMLHttpRequest();
 		xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/collaborator/" + collaboratorId + "/report", false); 
 		xmlHttp.setRequestHeader('Content-type', 'application/json');
 		xmlHttp.send();
 		var text = xmlHttp.responseText;
-	    alert(text);
+	    
 
 		var collaboratorReportJson = JSON.parse(text);
 
@@ -124,12 +132,12 @@ function reportbycollaborator() {
 
 			var productions = projectsConcluded[i].productions;
 
-//			for ( var j in productions) {
-//				projetsConcludedText += "<br>Título:" + productions[j].title +
-//				// "<br>Orientador:" + productions[j].advisor.name +
-//				"<br>Ano:" + productions[j].year + "<br>Tipo de Produção:"
-//						+ productions[j].academicProductionType;
-//			}
+			for ( var j in productions) {
+				projetsConcludedText += "<br>Título:" + productions[j].title +
+				// "<br>Orientador:" + productions[j].advisor.name +
+				"<br>Ano:" + productions[j].year + "<br>Tipo de Produção:"
+						+ productions[j].academicProductionType;
+			}
 		}
 		reportCollaborator += projetsConcludedText;
 		document.getElementById("demo").innerHTML = reportCollaborator;
@@ -137,33 +145,56 @@ function reportbycollaborator() {
 }
 
 function reportbyproject() {
-	var xmlHttp = new XMLHttpRequest();
-	xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/project/"
-			+ "30" + "/report", false); // false for synchronous request
-	xmlHttp.send();
-	var text = xmlHttp.responseText;
+	
+	var projectIndex = document.getElementById("projects").selectedIndex;
+    var projects = document.getElementById("projects").options;
+   
+    var projectId = projects[projectIndex].value;
+    if (projectId != null && projectId != "") {
 
-	var projectReportJson = JSON.parse(text);
+		projectId = "\"" + projectId + "\"";
 
-	var startDate = formatDate(projectReportJson.startDate);
-	var endDate = formatDate(projectReportJson.endDate);
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/project/" + projectId + "/report", false);
+		xmlHttp.send();
+		var text = xmlHttp.responseText;
+		
+		var projectReportJson = JSON.parse(text);
+		var startDate = formatDate(projectReportJson.startDate);
+		var endDate = formatDate(projectReportJson.endDate);
 
-	var projectText = "<ul><b>Relatório Por Projeto</b> <ul>";
-	projectText += "<br><b>Título:" + projectReportJson.title + "</b>"
-			+ "<br>Objetivo:" + projectReportJson.goal + "<br>Descrição:"
-			+ projectReportJson.description + "<br>Instituição Financiadora:"
-			+ projectReportJson.fundingInstitutionName
-			+ "<br>Valor Financiado:" + projectReportJson.fundingValue
-			+ "<br> Data Inicial: " + startDate + "<br> Data Final: " + endDate;
+		var projectText = "<ul><b>Relatório Por Projeto</b> <ul>";
+		projectText += "<br><b>Título:" + projectReportJson.title + "</b>"
+				+ "<br>Objetivo:" + projectReportJson.goal
+				+ "<br>Descrição:" + projectReportJson.description
+				+ "<br>Instituição Financiadora:" + projectReportJson.fundingInstitutionName
+				+ "<br>Valor Financiado:" + projectReportJson.fundingValue
+				+ "<br> Data Inicial: " + startDate 
+				+ "<br> Data Final: " + endDate;
 
-	for ( var j in projectReportJson.productions) {
-		projectText += "<li><b>Publicação :"
-				+ projectReportJson.productions[j].title + "</b></li>";
-		projectText += "Ano:" + projectReportJson.productions[j].year
-				+ "<br>Tipo de Produção:"
-				+ projectReportJson.productions[j].academicProductionType;
-		// "<br>Orientador:" + productions[j].advisor.name;
-	}
+		
+		xmlHttp = new XMLHttpRequest();
+		xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/project/" + projectId + "/productions", false);
+		xmlHttp.send();
+		text = xmlHttp.responseText;
+		var productionsJson = JSON.parse(text);
+		projectText+= "<ol>";
+		for (var i in productionsJson.productions) {
+			var typeProduction = "";
+			if(productionsJson.productions[i].type == "PUBLICATION"){
+				typeProduction = "Publicação";
+			}
+			else{
+				typeProduction = "Orientação";
+			}
+			
+			projectText += "<li><b>Publicação :" + productionsJson.productions[i].title + "</b></li>";
+			projectText += "Ano:" + productionsJson.productions[i].year
+					    +  "<br>Tipo de Produção:" + typeProduction
+					    +  "<br>Autores:" + productionsJson.productions[i].authors;
+		}
+		projectText+= "</ol>";
 
-	document.getElementById("demo").innerHTML = projectText;
+		document.getElementById("demo").innerHTML = projectText;
+    }
 }

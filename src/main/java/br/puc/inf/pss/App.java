@@ -32,7 +32,7 @@ public class App extends Jooby {
 	   ManagerAcademicService.manager.addColaborator(database.tea10);
 	   ManagerAcademicService.manager.addColaborator(database.tea11);
 	   
-	   
+	   ManagerAcademicService.manager.elaborateResearchProject(database.proj1);
 	   ManagerAcademicService.manager.elaborateResearchProject(database.proj2);
 	   ManagerAcademicService.manager.addAcademicProduction(database.publ1);
 	 

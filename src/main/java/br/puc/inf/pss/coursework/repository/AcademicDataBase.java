@@ -1,4 +1,4 @@
-package br.puc.inf.pss.coursework.repository;
+﻿package br.puc.inf.pss.coursework.repository;
 
 
 
@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
-import org.junit.Test;
-
 import br.puc.inf.pss.coursework.model.production.AcademicProduction;
 import br.puc.inf.pss.coursework.model.production.Orientation;
 import br.puc.inf.pss.coursework.model.production.Publication;
