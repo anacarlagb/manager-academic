@@ -47,9 +47,72 @@ function generateDegreeStudent(id, email, name, startDate){
 }
 
 function generateMasterStudent(id, email, name, startDate){
+	collaborator.id = id;
+	collaborator.email = email;
+	collaborator.name = name;
+	collaborator.startDate = new Date(startDate);
+	collaborator.type = "MASTER_STUDENT";
+	collaborator.collaboratorType = "MASTER_STUDENT"; 
 	
+	var masterTextHtml= "<select id=\"periodTypes\">";
+    
+	masterTextHtml += "<br>Selecione o regime de tempo:"  
+	    +"<option value=PARTIAL>PARCIAL</option>" 
+	    +"<option value=INTEGRAL>INTEGRAL</option>" 
+		+"</select>";
+    masterTextHtml += "<button onclick=\"getPeriodType()\">Próximo</button>";
+	
+    document.getElementById("demo").innerHTML =   masterTextHtml;
 }
 
 function generatePHDStudent(id, email, name, startDate){
+	collaborator.id = id;
+	collaborator.email = email;
+	collaborator.name = name;
+	collaborator.startDate = new Date(startDate);
+	collaborator.type = "PHD_STUDENT";
+	collaborator.collaboratorType = "PHD_STUDENT"; 
+	
+	var phdTextHtml= "<select id=\"periodTypes\">";
+    
+	phdTextHtml += "<br>Selecione o regime de tempo:"  
+	    +"<option value=PARTIAL>PARCIAL</option>" 
+	    +"<option value=INTEGRAL>INTEGRAL</option>" 
+		+"</select>";
+    phdTextHtml += "<button onclick=\"getPeriodType()\">Próximo</button>";
+    
+    document.getElementById("demo").innerHTML =   phdTextHtml;
+}
+
+
+function getPeriodType(){
+	
+	var periodIndex = document.getElementById("periodTypes").selectedIndex;
+    var periodTypes = document.getElementById("periodTypes").options;
+    var periodType = periodTypes[periodIndex].value;
+    collaborator.periodType = periodType;
+    getAdvisor();
+
+
+}
+
+function getAdvisor(){
+	var advisorsText = getCollaborators("PROFESSOR");
+	var advisorTextHtml = "<br>Selecione o orientador:"  
+		+ advisorsText
+		+ "<button onclick=\"saveStudent()\">Salvar</button>";
+
+	document.getElementById("demo").innerHTML =  advisorTextHtml;
 	
 }
+
+
+
+
+
+
+
+
+
+
+
