@@ -32,7 +32,6 @@ public abstract class AcademicProduction {
 
 	protected String idResearchProject;
 	protected Collaborator advisor;
-	protected List<Collaborator> collaborators;
 	protected int year;
 	protected AcademicProductionType academicProductionType;
 	
@@ -42,7 +41,7 @@ public abstract class AcademicProduction {
 	@JsonCreator
 	public AcademicProduction(@JsonProperty("id") String id, 
 			                  @JsonProperty("title") String title,
-			                  @JsonProperty("collaborators") List<Collaborator> collaborators,
+			                  @JsonProperty("authors") List<Collaborator> authors,
 			                  @JsonProperty("idResearchProject") String idResearchProject,
 			                  @JsonProperty("advisor") Collaborator advisor, 
 			                  @JsonProperty("year") int year,
@@ -53,7 +52,7 @@ public abstract class AcademicProduction {
 			      id;
 		
 		this.title = title;
-		this.authors = collaborators;
+		this.authors = authors;
 		this.idResearchProject = idResearchProject;
 		this.advisor = advisor;
 		this.year = year;
