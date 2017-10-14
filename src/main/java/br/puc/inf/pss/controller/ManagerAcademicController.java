@@ -164,22 +164,22 @@ public class ManagerAcademicController {
 	
 	
 	@GET
-	@Path("/project/:projectId/productions")
-	public Result getProductionsByProject(String userId, String projectId) {
-		if (projectId != null && !projectId.isEmpty()) {
-			projectId = projectId.replaceAll("\"", "");
+	@Path("/collaborator/:collaboratorId/productions")
+	public Result getProductionsByCollaborator(String userId, String collaboratorId) {
+		if (collaboratorId != null && !collaboratorId.isEmpty()) {
+			collaboratorId = collaboratorId.replaceAll("\"", "");
 			
-			ResearchProject projectReport = ManagerAcademicService.manager.generateResearchProjectReport(projectId);
-			JSONObject productionsJson = JsonBuilder.buildProductions(projectReport.getProductions());
+			List<AcademicProduction> productions = ManagerAcademicService.manager.getProductionsByCollaborator(collaboratorId);
+			JSONObject productionsJson = JsonBuilder.buildProductions(productions);
 			
-			if(projectReport != null) {
-				
+			if(productionsJson != null) {
 				return Results.ok(productionsJson);
 			}
 			
 		}
 		return Results.with("Esse projeto não existe");
 	}
+	
 	
 	
 }

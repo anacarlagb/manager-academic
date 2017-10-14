@@ -225,6 +225,7 @@ public class ManagerAcademicService {
 	    	List<ResearchProject> projectsInElaboration = new ArrayList<>();
 	    	List<ResearchProject> projectsInProgress = new ArrayList<>();
 	    	List<ResearchProject> projectsConcluded = new ArrayList<>();
+	    	ReportUtils.sortProductions(collaborator.getProductions());
 	    	
 	    	for(ResearchProject project : collaborator.getProjects()) {
 	    		
@@ -347,6 +348,20 @@ public class ManagerAcademicService {
 	   }
 		
 		return collaboratorsByType;
+	}
+
+	public List<AcademicProduction> getProductionsByCollaborator(String collaboratorId) {
+		// TODO Auto-generated method stub
+		
+		  for(Collaborator collaborator : collaborators) {
+			   if(collaborator.getId().equals(collaboratorId)) {
+				   ReportUtils.sortProductions(collaborator.getProductions());
+				   return collaborator.getProductions();
+				   
+			   }
+		   }
+		
+		return null;
 	}
 	
 	

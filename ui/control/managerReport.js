@@ -73,6 +73,32 @@ function reportbycollaborator() {
 		reportCollaborator += "<li> Nome: " + collaboratorReportJson.name   + "</li> " +
 		                      "<li> Email: " + collaboratorReportJson.email + "</li> ";
 
+		
+		
+		xmlHttp = new XMLHttpRequest();
+		xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/collaborator/" + collaboratorId + "/productions", false);
+		xmlHttp.send();
+		text = xmlHttp.responseText;
+		var productionsJson = JSON.parse(text);
+		var productionsText = "<ol>";
+		
+		for (var i in productionsJson.productions) {
+			var typeProduction = "";
+			if(productionsJson.productions[i].type == "PUBLICATION"){
+				typeProduction = "Publicação";
+			}
+			else{
+				typeProduction = "Orientação";
+			}
+			
+			productionsText += "<li><b>Publicação :" + productionsJson.productions[i].title + "</b></li>";
+			productionsText += "Ano:" + productionsJson.productions[i].year
+					    +  "<br>Tipo de Produção:" + typeProduction
+					    +  "<br>Autores:" + productionsJson.productions[i].authors;
+		}
+		productionsText += "</ol>";
+		
+		reportCollaborator += productionsText;
 		reportCollaborator += "<li> Projetos de Pesquisa em Elaboração: "
 				             + collaboratorReportJson.projectsInElaboration.length + "</li> ";
 		
@@ -84,7 +110,7 @@ function reportbycollaborator() {
 			startDate = formatDate(projectsInElaboration[i].startDate);
 			endDate = formatDate(projectsInElaboration[i].endDate);
 			
-			projetsInElaborationText += "<br>Título:" + projectsInElaboration[i].title 
+			projetsInElaborationText += "<br><b>Título:" + projectsInElaboration[i].title + "</b>"
 					+ "<br>Objetivo:" + projectsInElaboration[i].goal
 					+ "<br>Descrição:" + projectsInElaboration[i].description
 					+ "<br>Instituição Financiadora:" + projectsInElaboration[i].fundingInstitutionName
@@ -103,7 +129,7 @@ function reportbycollaborator() {
 
 			startDate = formatDate(projectsInProgress[i].startDate);
 			endDate = formatDate(projectsInProgress[i].endDate);
-			projetsInProgressText += "<br>Título:" + projectsInProgress[i].title 
+			projetsInProgressText += "<br><b>Título:" + projectsInProgress[i].title + "</b>" 
 			        + "<br>Objetivo:"  + projectsInProgress[i].goal 
 			        + "<br>Descrição:" + projectsInProgress[i].description
 					+ "<br>Instituição Financiadora:" + projectsInProgress[i].fundingInstitutionName
@@ -122,7 +148,7 @@ function reportbycollaborator() {
 
 			startDate = formatDate(projectsConcluded[i].startDate);
 			endDate = formatDate(projectsConcluded[i].endDate);
-			projetsConcludedText += "<br>Título:" + projectsConcluded[i].title
+			projetsConcludedText += "<br><b>Título:" + projectsConcluded[i].title + "</b>"
 					+ "<br>Objetivo:" + projectsConcluded[i].goal
 					+ "<br>Descrição:" + projectsConcluded[i].description
 					+ "<br>Instituição Financiadora:" + projectsConcluded[i].fundingInstitutionName
@@ -130,14 +156,30 @@ function reportbycollaborator() {
 					+ "<br> Data Inicial: " + startDate 
 					+ "<br> Data Final: " + endDate;
 
-			var productions = projectsConcluded[i].productions;
-
-			for ( var j in productions) {
-				projetsConcludedText += "<br>Título:" + productions[j].title +
-				// "<br>Orientador:" + productions[j].advisor.name +
-				"<br>Ano:" + productions[j].year + "<br>Tipo de Produção:"
-						+ productions[j].academicProductionType;
+			
+			var projectId = "\"" + projectsConcluded[i].id + "\"";
+			xmlHttp = new XMLHttpRequest();
+			xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/project/" + projectId + "/productions", false);
+			xmlHttp.send();
+			text = xmlHttp.responseText;
+			var productionsJson = JSON.parse(text);
+			projetsConcludedText += "<ol>";
+			
+			for (var i in productionsJson.productions) {
+				var typeProduction = "";
+				if(productionsJson.productions[i].type == "PUBLICATION"){
+					typeProduction = "Publicação";
+				}
+				else{
+					typeProduction = "Orientação";
+				}
+				
+				projetsConcludedText += "<li><b>Publicação :" + productionsJson.productions[i].title + "</b></li>";
+				projetsConcludedText += "Ano:" + productionsJson.productions[i].year
+						    +  "<br>Tipo de Produção:" + typeProduction
+						    +  "<br>Autores:" + productionsJson.productions[i].authors;
 			}
+			projetsConcludedText += "</ol>";
 		}
 		reportCollaborator += projetsConcludedText;
 		document.getElementById("demo").innerHTML = reportCollaborator;
