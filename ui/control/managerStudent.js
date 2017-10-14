@@ -15,12 +15,21 @@ function saveStudent() {
 	collaborator.productions = [];
 	collaborator.projects = [];
 	var collaboratorJson = JSON.stringify(collaborator);
-	alert(collaboratorJson);
+	
 	
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("POST", "http://localhost:8080/app/user/lkfamks/collaborator", true); // false for synchronous request
 	xmlHttp.setRequestHeader('Content-type', 'application/json');
 	xmlHttp.send(collaboratorJson);
+	
+	
+	xmlHttp.onload = function () {
+		
+		 if(xmlHttp.status == 200){
+			 alert("Estudante cadastrado com sucesso!!");
+		 }
+		 
+	};
 
 	
 }
