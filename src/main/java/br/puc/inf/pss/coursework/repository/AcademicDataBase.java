@@ -222,7 +222,7 @@ public class AcademicDataBase {
 		publ1 = new Publication(null,
 				"Abordagem Quantitativa para Desenvolvimento de Software Orientado a Aspectos", 
 			     cols11List,
-				"SBQS", 2006, "30", null);
+				"SBQS", 2006, "30", null, null);
 	
 		Collaborator[] cols12 = {deg1, phd9, tea11};
 		List<Collaborator> cols12List = new ArrayList<>();
@@ -230,7 +230,7 @@ public class AcademicDataBase {
 		publ2 = new Publication(null, 
 				"Refactoring Product Lines",
 				cols12List,
-				"GPCE", 2007, null, null);
+				"GPCE", 2007, null, null, null);
 
 	
 		Collaborator[] cols13 = {mas6, tea12};
@@ -239,7 +239,7 @@ public class AcademicDataBase {
 		publ3 = new Publication(null, 
 				"Tratamento de Exceções Sensível ao Contexto",
 				cols13List,
-				"SBES", 2006, null, null);
+				"SBES", 2006, null, null, null);
 	
 		Collaborator[] cols14 = {mas6, mas7, tea12};
 		List<Collaborator> cols14List = new ArrayList<>();
@@ -247,7 +247,7 @@ public class AcademicDataBase {
 		publ4 = new Publication(null,
 				"Integrating MAS in a component-based groupware environment",
 				cols14List, 
-				"AOSE", 2006, "20", null);
+				"AOSE", 2006, "20", null, null);
 	
 		Collaborator[] cols15 = {deg1, phd9, tea10};
 		List<Collaborator> cols15List = new ArrayList<>();
@@ -255,7 +255,7 @@ public class AcademicDataBase {
 		publ5 = new Publication(null,
 				"Reputation Model Based on Testimonies",
 				cols15List,
-				"AAMAS", 2006, "20", null);
+				"AAMAS", 2006, "20", null, null);
 	
 		Collaborator[] cols16 = {phd8};
 		List<Collaborator> cols16List = new ArrayList<>();
@@ -263,7 +263,7 @@ public class AcademicDataBase {
 		publ6 = new Publication(null, 
 				"Extensions on Interaction Laws in Open Multi-Agent Systems",
 				cols16List, 
-				"SEAS", 2005, null, null);
+				"SEAS", 2005, null, null, null);
 	
 		Collaborator[] cols17 = {mas4, tea10};
 		List<Collaborator> cols17List = new ArrayList<>();
@@ -271,7 +271,7 @@ public class AcademicDataBase {
 	    publ7 = new Publication(null,
 				"Aspect-oriented Patterns",
 				cols17List,
-				"FLOP", 2006, "30", null);
+				"FLOP", 2006, "30", null, null);
 	
 	    Collaborator[] cols18 = {tea12, mas7};
 		List<Collaborator> cols18List = new ArrayList<>();
@@ -279,7 +279,7 @@ public class AcademicDataBase {
 		publ8 = new Publication(null, 
 				"Classifying and Describing Agent Contracts and Norms",
 				cols18List,
-				"AAMAS", 2005, "20", null);
+				"AAMAS", 2005, "20", null, null);
 	
 		
 		//Orientations
@@ -288,35 +288,35 @@ public class AcademicDataBase {
 		cols19List.addAll(Arrays.asList(cols19));
 		ori9 = new Orientation(null,
 				"Trablho de Conclusão de Curso: Usabilidade no Portal do Banco do Brasil",
-		        tea10, deg1, cols19List, null, 0 );
+		        tea10, deg1, cols19List, null, 0, null );
 	
 		Collaborator[] cols20 = {tea10, mas4};
 		List<Collaborator> cols20List = new ArrayList<>();
 		cols20List.addAll(Arrays.asList(cols20));
 		ori10 = new Orientation(null, 
 				"Framework para o Cálculo de Reputação de Agentes",
-				tea10, mas4,cols20List, null, 0);
+				tea10, mas4,cols20List, null, 0, null);
 	
 		Collaborator[] cols21 = {tea12, mas5};
 		List<Collaborator> cols21List = new ArrayList<>();
 		cols21List.addAll(Arrays.asList(cols21));
 		ori11 = new Orientation(null,
 				"Arquitetura para Catálogos de Objetos baseado em Ontologias",
-				tea12, mas5,cols21List, null, 0);
+				tea12, mas5,cols21List, null, 0, null);
 	
 		Collaborator[] cols22 = {tea12, mas7};
 		List<Collaborator> cols22List = new ArrayList<>();
 		cols22List.addAll(Arrays.asList(cols22));
 		ori12 = new Orientation(null, 
 				 "Framework para Smart Cards", 
-				 tea12, mas7,cols22List, null, 0);
+				 tea12, mas7,cols22List, null, 0, null);
 	
 		Collaborator[] cols23 = {tea10, phd9};
 		List<Collaborator> cols23List = new ArrayList<>();
 		cols23List.addAll(Arrays.asList(cols23));
 		ori13 = new Orientation(null,
 				"Linguagem de Modelagem para Sistemas baseados em Agentes", 
-				tea10, phd9,cols23List, null, 0);
+				tea10, phd9,cols23List, null, 0, null);
 		
 		
 		Collaborator[] cols24 = {phd8, phd9};
@@ -324,7 +324,7 @@ public class AcademicDataBase {
 		cols24List.addAll(Arrays.asList(cols24));
 		ori14 = new Orientation(null,
 				"Linguagem de Modelagem para Sistemas baseados em Agentes", 
-				phd8, phd9,cols24List, null, 0);
+				phd8, phd9,cols24List, null, 0, null);
 
 	}
       

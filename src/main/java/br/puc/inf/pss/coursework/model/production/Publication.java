@@ -20,7 +20,8 @@ public class Publication extends AcademicProduction{
 			           @JsonProperty("conferenceName") String conferenceName,
 			           @JsonProperty("year") int year,
 			           @JsonProperty("researchProjectId") String researchProjectId,
-			           @JsonProperty("advisor") Collaborator advisor) {
+			           @JsonProperty("advisor") Collaborator advisor,
+			           @JsonProperty("academicProductionType") AcademicProductionType academicProductionType) {
 		
 		super(id, title, authors, researchProjectId, advisor, year, AcademicProductionType.PUBLICATION);
 		this.conferenceName = conferenceName;

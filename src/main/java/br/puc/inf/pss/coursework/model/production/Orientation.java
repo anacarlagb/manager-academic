@@ -22,7 +22,8 @@ public class Orientation extends AcademicProduction{
 			           @JsonProperty("student") Collaborator student, 
 			           @JsonProperty("authors") List<Collaborator> authors,
 			           @JsonProperty("idResearchProject") String idResearchProject,
-			           @JsonProperty("year") int year) {
+			           @JsonProperty("year") int year, 
+			           @JsonProperty("academicProductionType") AcademicProductionType academicProductionType) {
 
 		super(id, title, authors, idResearchProject, null, year, AcademicProductionType.ORIENTATION);
 

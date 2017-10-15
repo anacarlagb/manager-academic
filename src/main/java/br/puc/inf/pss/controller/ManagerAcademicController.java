@@ -180,6 +180,24 @@ public class ManagerAcademicController {
 		return Results.with("Esse projeto não existe");
 	}
 	
+	@GET
+	@Path("/project/:projectId/productions")
+	public Result getProductionsByProject(String userId, String projectId) {
+		if (projectId != null && !projectId.isEmpty()) {
+			projectId = projectId.replaceAll("\"", "");
+			
+			ResearchProject projectReport = ManagerAcademicService.manager.generateResearchProjectReport(projectId);
+			JSONObject productionsJson = JsonBuilder.buildProductions(projectReport.getProductions());
+			
+			if(projectReport != null) {
+				
+				return Results.ok(productionsJson);
+			}
+			
+		}
+		return Results.with("Esse projeto não existe");
+	}
+	
 	
 	
 }
