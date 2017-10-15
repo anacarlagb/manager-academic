@@ -1,6 +1,8 @@
 var project = {};
 var collaborators = [];
 var authors = [];
+
+var projects = [];
 function addproject(){
 	
 	
@@ -25,6 +27,7 @@ function addproject(){
 
 
 function getProjects(){
+	
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("GET", "http://localhost:8080/app/user/lkfamks/projects", false); // false for synchronous request
 	xmlHttp.send();
@@ -33,6 +36,7 @@ function getProjects(){
 	var projectsJson = JSON.parse(text);
     var projectsText = "";
 	projectsText += "<select id=\"projects\">";
+    this.projects = projectsJson.projects;
     
 	for(var j in projectsJson.projects){
 		
